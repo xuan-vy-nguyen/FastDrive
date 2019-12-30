@@ -1,0 +1,7 @@
+1. first install go-mongo-driver
+    install golang & mongodb
+    install dep
+    go to golang_workspace and create PROJECT_WORKSPACE
+    type "dep init"
+    then follow this link https://www.mongodb.com/blog/post/mongodb-go-driver-tutorial
+    https://dev.to/moficodes/build-your-first-rest-api-with-go-2gcj
