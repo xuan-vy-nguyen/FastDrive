@@ -10,7 +10,8 @@ import (
 func main() {
 	r := mux.NewRouter()
 	api := r.PathPrefix("/api/v1").Subrouter()
-	// api.HandleFunc("", get).Methods(http.MethodGet)
+	api.HandleFunc("/logout", logOutGet).Methods(http.MethodGet)
+	api.HandleFunc("/getrandom", getRandomGet).Methods(http.MethodGet)
 	api.HandleFunc("/login", loginPost).Methods(http.MethodPost)
 	api.HandleFunc("/signup", signUpPost).Methods(http.MethodPost)
 	// api.HandleFunc("", put).Methods(http.MethodPut)

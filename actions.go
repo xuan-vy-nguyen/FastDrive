@@ -3,11 +3,13 @@ package main
 import (
 	"encoding/json"
 	"net/http"
-
+	"fmt"
 	"github.com/xuan-vy-nguyen/SE_Project01/database"
 )
 
 func loginPost(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("loginPost")
+
 	var p database.LoginAccount
 
 	err := json.NewDecoder(r.Body).Decode(&p)
@@ -50,10 +52,12 @@ func loginPost(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(responser)
+	fmt.Println("")
 }
 
-
 func signUpPost(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("signUpPost")
+
 	var p database.SignUpAccount
 
 	err := json.NewDecoder(r.Body).Decode(&p)
@@ -64,8 +68,8 @@ func signUpPost(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	// check information and return bugs 
-	errrStr := checkingSignUp(p)
-	if errrStr != "" {
+	
+	if errrStr := checkingSignUp(p); errrStr != "" {
 		responser := database.MessageRespone{
 			Message: errrStr,
 			Body: nil,
@@ -77,4 +81,48 @@ func signUpPost(w http.ResponseWriter, r *http.Request) {
 	// if no bug -> return OK
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte(`{"message": "created"}`))
+	fmt.Println("")
+}
+
+func logOutGet(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("logOutGet")
+
+	jwtStr := r.Header["Access-Token"][0]
+	w.Header().Set("Content-Type", "application/json")
+
+	// check information and return bugs 
+	if (!isInLoginDB(jwtStr)) {	
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{"message": "You are not logging in"}`))
+		return
+	}
+
+	// remove in login DB
+	if err:= removeInLoginDB(jwtStr); err == false {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(`{"message": "Internal Server Error"}`))
+		return
+	}
+
+	// if no bug -> return OK
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(`{"message": "OK"}`))
+	fmt.Println("")
+}
+
+func getRandomGet(w http.ResponseWriter, r *http.Request){
+	fmt.Println("getRandomGet")
+
+	jwtStr := r.Header["Access-Token"][0]
+	w.Header().Set("Content-Type", "application/json")
+	// check information and return bugs 
+	if (!isInLoginDB(jwtStr)) {	
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{"message": "You are not logging in"}`))
+		return
+	}
+	// if no bug -> return OK
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(`{"message": "you are logging in", "body": "success!"}`))
+	fmt.Println("")
 }

@@ -105,7 +105,7 @@ func checkAccInSignUpDB(p database.LoginAccount)(int){
 	var result database.SignUpAccount
 	// this errCondition is use below
 	errCondition := collection.FindOne(context.TODO(), filter).Decode(&result)
-
+	fmt.Println("finding error ", errCondition)
 	// Disconnect
 	err = client.Disconnect(context.TODO())
 	if err != nil {
@@ -142,10 +142,10 @@ func checkAccInLoginDB(p database.LoginAccount)(bool){
 
 	filter := bson.D{primitive.E{Key: "mail", Value: p.Mail}}
 
-	var result database.SignUpAccount
+	var result database.LoginDB
 	// this errCondition is use below
 	errCondition := collection.FindOne(context.TODO(), filter).Decode(&result)
-
+	fmt.Println("finding error ", errCondition)
 	// Disconnect
 	err = client.Disconnect(context.TODO())
 	if err != nil {
@@ -181,7 +181,7 @@ func existInSignUpDB(p string)(bool){
 	var result database.SignUpAccount
 	// this errCondition is use below
 	errCondition := collection.FindOne(context.TODO(), filter).Decode(&result)
-
+	fmt.Println("finding error ", errCondition)
 	// Disconnect
 	err = client.Disconnect(context.TODO())
 	if err != nil {
@@ -194,5 +194,83 @@ func existInSignUpDB(p string)(bool){
 	if errCondition != nil {
 		return false
 	}
+	return true
+}
+
+func isInLoginDB(jwtStr string)(bool){
+	// Set client options
+	clientOptions := options.Client().ApplyURI(MongoURI)
+
+	// Connect to MongoDB
+	client, err := mongo.Connect(context.TODO(), clientOptions)
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+	fmt.Println("Connected to LoginDB!")
+
+	// find element in MongoDB
+	collection := client.Database("app").Collection(LoginDB)
+
+	filter := bson.D{primitive.E{Key: "token", Value: jwtStr}}
+
+	var result database.LoginDB
+	// this errCondition is use below
+	errCondition := collection.FindOne(context.TODO(), filter).Decode(&result)
+	fmt.Println("finding error ", errCondition)
+	// if errCondition == nil {	// err = nil -> finded -> let delete it
+	// 	deleteResult, err := collection.DeleteOne(context.TODO(), filter)
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	fmt.Printf("Deleted %+v\n", deleteResult) 
+	// }
+
+	// Disconnect
+	err = client.Disconnect(context.TODO())
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+	fmt.Println("Connection to LoginDB closed.")
+	
+	// check condition
+	if errCondition != nil {
+		return false
+	}
+	return true
+}
+
+func removeInLoginDB(jwtStr string)(bool){
+	// Set client options
+	clientOptions := options.Client().ApplyURI(MongoURI)
+
+	// Connect to MongoDB
+	client, err := mongo.Connect(context.TODO(), clientOptions)
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+	fmt.Println("Connected to LoginDB!")
+
+	// delete element in MongoDB
+	collection := client.Database("app").Collection(LoginDB)
+
+	filter := bson.D{primitive.E{Key: "token", Value: jwtStr}}
+
+	deleteResult, err := collection.DeleteOne(context.TODO(), filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+	
+	fmt.Printf("Deleted %+v\n", deleteResult) 
+	
+	// Disconnect
+	err = client.Disconnect(context.TODO())
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+	fmt.Println("Connection to LoginDB closed.")
 	return true
 }
