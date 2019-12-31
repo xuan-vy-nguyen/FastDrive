@@ -5,3 +5,6 @@
     type "dep init"
     then follow this link https://www.mongodb.com/blog/post/mongodb-go-driver-tutorial
     https://dev.to/moficodes/build-your-first-rest-api-with-go-2gcj
+
+2.  use jwt
+    https://www.sohamkamani.com/blog/golang/2019-01-01-jwt-authentication/
