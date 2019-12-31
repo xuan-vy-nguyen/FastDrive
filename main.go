@@ -18,5 +18,10 @@ func main() {
 	// api.HandleFunc("", delete).Methods(http.MethodDelete)
 	// api.HandleFunc("", notFound)
 	port := os.Getenv("PORT")
-	log.Fatal(http.ListenAndServe(":" + port, r))
+	print(port)
+	if (port != "") {
+		log.Fatal(http.ListenAndServe(":" + port, r))
+	} else {
+		log.Fatal(http.ListenAndServe(":8080", r))
+	} 
 }
