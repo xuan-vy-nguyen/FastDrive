@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
-
+	"os"
 	"github.com/gorilla/mux"
 )
 
@@ -17,5 +17,6 @@ func main() {
 	// api.HandleFunc("", put).Methods(http.MethodPut)
 	// api.HandleFunc("", delete).Methods(http.MethodDelete)
 	// api.HandleFunc("", notFound)
-	log.Fatal(http.ListenAndServe(":8080", r))
+	port := os.Getenv("PORT")
+	log.Fatal(http.ListenAndServe(":" + port, r))
 }
