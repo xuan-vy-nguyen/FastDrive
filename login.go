@@ -4,14 +4,19 @@ import (
 	"github.com/xuan-vy-nguyen/SE_Project01/database"
 )
 
-func checkingLogin(p database.LoginAccount) (string, int) {
+func checkingLogin(p database.LoginAccount) (database.JWTRespone, int) {
+	var reponseJson database.JWTRespone
 	if p.Mail != "xuanvy99" || p.Pass != "12345678" {
-		return "", 0
+		return reponseJson, 0
 	}
 	token, err := createJWT(p)
 	if err {
-		return "", 1
+		return reponseJson, 1
 	}
-	return token, 2
+	reponseJson = database.JWTRespone{
+		AccessToken: token,
+		RefreshToken: "",
+	}
+	return reponseJson, 2
 }
 

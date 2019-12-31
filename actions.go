@@ -17,20 +17,27 @@ func loginPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	token, errr := checkingLogin(p)
+	JsonToken, errr := checkingLogin(p)
 	switch(errr){
 		case 0:
 			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte(`{"message": "mail or/and password is wrong"}`))
+			w.Write([]byte(`{"message": "mail or|and password is wrong"}`))
 			return
 		case 1:
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(`{"message": "server has something wrong"}`))
 			return
+		default:
+			errDB := addLoginDB(p.Mail, JsonToken.AccessToken)
+			if errDB{
+				w.WriteHeader(http.StatusInternalServerError)
+				w.Write([]byte(`{"message": "server has something wrong"}`))
+				return
+			}
 	}
-
+	// convert jsonToken to  and send
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(token))
+	json.NewEncoder(w).Encode(JsonToken)
 }
 
 
@@ -44,7 +51,7 @@ func signUpPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	token, errr := checkingLogin(p)
+	JsonToken, errr := checkingLogin(p)
 	switch(errr){
 		case 0:
 			w.WriteHeader(http.StatusBadRequest)
@@ -55,7 +62,6 @@ func signUpPost(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(`{"message": "server has something wrong"}`))
 			return
 	}
-
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(token))
+	json.NewEncoder(w).Encode(JsonToken) 
 }
