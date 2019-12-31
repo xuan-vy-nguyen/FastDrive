@@ -35,14 +35,18 @@ func loginPost(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 	}
-	// convert jsonToken to  and send
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(JsonToken)
+	// and send
+	responser := database.MessageRespone{
+		Message: "OK",
+		Body: JsonToken,
+	}
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(responser)
 }
 
 
 func signUpPost(w http.ResponseWriter, r *http.Request) {
-	var p database.LoginAccount
+	var p database.SignUpAccount
 
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
@@ -51,17 +55,18 @@ func signUpPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	JsonToken, errr := checkingLogin(p)
-	switch(errr){
-		case 0:
-			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte(`{"message": "mail or/and password is wrong"}`))
-			return
-		case 1:
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(`{"message": "server has something wrong"}`))
-			return
+	// check information and return bugs 
+	errrStr := checkingSignUp(p)
+	if errrStr != "" {
+		responser := database.MessageRespone{
+			Message: errrStr,
+			Body: nil,
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(responser)
+		return 
 	}
+	// if no bug -> return OK
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(JsonToken) 
+	w.Write([]byte(`{"message": "created"}`))
 }

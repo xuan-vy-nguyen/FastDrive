@@ -46,3 +46,36 @@ func addLoginDB(mail_ string, token_ string)(bool) {
 	fmt.Println("Connection to MongoDB closed.")
 	return false
 }
+
+func addSignUpDB(infor database.SignUpAccount) string {
+	// Set client options
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+
+	// Connect to MongoDB
+	client, err := mongo.Connect(context.TODO(), clientOptions)
+	if err != nil {
+		log.Fatal(err)
+		return "server has something wrong"
+	}
+	fmt.Println("Connected to MongoDB!")
+
+	// insert to MongoDB
+	collection := client.Database("app").Collection("SignDB")
+
+	newElement := infor
+	insertResult, err := collection.InsertOne(context.TODO(), newElement)
+	if err != nil {
+		log.Fatal(err)
+		return "server has something wrong"
+	}
+	fmt.Println("Inserted a single document: ", insertResult.InsertedID)
+
+	// Disconnect
+	err = client.Disconnect(context.TODO())
+	if err != nil {
+		log.Fatal(err)
+		return "server has something wrong"
+	}
+	fmt.Println("Connection to MongoDB closed.")
+	return ""
+}
