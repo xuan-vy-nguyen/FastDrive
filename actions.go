@@ -21,15 +21,23 @@ func loginPost(w http.ResponseWriter, r *http.Request) {
 	switch(errr){
 		case 0:
 			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte(`{"message": "mail or|and password is wrong"}`))
+			w.Write([]byte(`{"message": "password is wrong"}`))
 			return
 		case 1:
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(`{"message": "server has something wrong"}`))
 			return
+		case 3:
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte(`{"message": "account is logging in another place"}`))
+			return
+		case 4:
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte(`{"message": "email is wrong"}`))
+			return
 		default:
 			errDB := addLoginDB(p.Mail, JsonToken.AccessToken)
-			if errDB{
+			if errDB {	// if have a bug when add acc to LoginDB
 				w.WriteHeader(http.StatusInternalServerError)
 				w.Write([]byte(`{"message": "server has something wrong"}`))
 				return
