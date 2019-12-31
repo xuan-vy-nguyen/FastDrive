@@ -12,7 +12,8 @@ import (
 	"github.com/xuan-vy-nguyen/SE_Project01/database"
 )
 
-var MongoURI = "mongodb://localhost:27017"
+var MongoURI = "mongodb+srv://xuanvy99:az1731999@cluster0-mzeio.mongodb.net/test?retryWrites=true&w=majority" // "mongodb://localhost:27017"
+var Collection = "app"
 var LoginDB = "LoginDB"
 var SignDB = "SignDB"
 
@@ -29,7 +30,7 @@ func addLoginDB(mail_ string, token_ string)(bool) {
 	fmt.Println("Connected to LoginDB!")
 
 	// insert to MongoDB
-	collection := client.Database("app").Collection(LoginDB)
+	collection := client.Database(Collection).Collection(LoginDB)
 
 	newElement := database.LoginDB{
 		Mail: mail_,
@@ -65,7 +66,7 @@ func addSignUpDB(infor database.SignUpAccount) string {
 	fmt.Println("Connected to SignDB!")
 
 	// insert to MongoDB
-	collection := client.Database("app").Collection(SignDB)
+	collection := client.Database(Collection).Collection(SignDB)
 
 	newElement := infor
 	insertResult, err := collection.InsertOne(context.TODO(), newElement)
@@ -98,7 +99,7 @@ func checkAccInSignUpDB(p database.LoginAccount)(int){
 	fmt.Println("Connected to SignDB!")
 
 	// find element in MongoDB
-	collection := client.Database("app").Collection(SignDB)
+	collection := client.Database(Collection).Collection(SignDB)
 
 	filter := bson.D{primitive.E{Key: "mail", Value: p.Mail}}
 
@@ -138,7 +139,7 @@ func checkAccInLoginDB(p database.LoginAccount)(bool){
 	fmt.Println("Connected to LoginDB!")
 
 	// find element in MongoDB
-	collection := client.Database("app").Collection(LoginDB)
+	collection := client.Database(Collection).Collection(LoginDB)
 
 	filter := bson.D{primitive.E{Key: "mail", Value: p.Mail}}
 
@@ -174,7 +175,7 @@ func existInSignUpDB(p string)(bool){
 	fmt.Println("Connected to SignDB!")
 
 	// find element in MongoDB
-	collection := client.Database("app").Collection(SignDB)
+	collection := client.Database(Collection).Collection(SignDB)
 
 	filter := bson.D{primitive.E{Key: "mail", Value: p}}
 
@@ -210,7 +211,7 @@ func isInLoginDB(jwtStr string)(bool){
 	fmt.Println("Connected to LoginDB!")
 
 	// find element in MongoDB
-	collection := client.Database("app").Collection(LoginDB)
+	collection := client.Database(Collection).Collection(LoginDB)
 
 	filter := bson.D{primitive.E{Key: "token", Value: jwtStr}}
 
@@ -254,7 +255,7 @@ func removeInLoginDB(jwtStr string)(bool){
 	fmt.Println("Connected to LoginDB!")
 
 	// delete element in MongoDB
-	collection := client.Database("app").Collection(LoginDB)
+	collection := client.Database(Collection).Collection(LoginDB)
 
 	filter := bson.D{primitive.E{Key: "token", Value: jwtStr}}
 
