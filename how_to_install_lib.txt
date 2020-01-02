@@ -8,3 +8,9 @@
 
 2.  use jwt
     https://www.sohamkamani.com/blog/golang/2019-01-01-jwt-authentication/
+
+3.  heroku
+    heroku.yml
+    https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
+    view heroku.logs
+    https://devcenter.heroku.com/articles/logging

@@ -18,111 +18,139 @@ func loginPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
+	var message string
 	JsonToken, errr := checkingLogin(p)
+	
+	w.Header().Set("Content-Type", "application/json")
+	defer func() {
+		responser := database.MessageRespone{
+			Message: message,
+			Body: JsonToken,
+		}
+		json.NewEncoder(w).Encode(responser)
+		fmt.Println("")
+	}()
+
 	switch(errr){
 		case 0:
 			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte(`{"message": "password is wrong"}`))
+			message = "password is wrong"
 			return
 		case 1:
 			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(`{"message": "server has something wrong"}`))
+			message = "server has something wrong"
 			return
 		case 3:
 			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte(`{"message": "account is logging in another place"}`))
+			message = "account is logging in another place"
 			return
 		case 4:
 			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte(`{"message": "email is wrong"}`))
+			message = "email is wrong"
 			return
 		default:
 			errDB := addLoginDB(p.Mail, JsonToken.AccessToken)
 			if errDB {	// if have a bug when add acc to LoginDB
 				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte(`{"message": "server has something wrong"}`))
-				return
+				message = "server has something wrong"
+			} else {
+				w.WriteHeader(http.StatusOK)
+				message = "OK"
 			}
+			return
 	}
-	// and send
-	responser := database.MessageRespone{
-		Message: "OK",
-		Body: JsonToken,
-	}
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(responser)
-	fmt.Println("")
 }
 
 func signUpPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("signUpPost")
 
 	var p database.SignUpAccount
+	var message string
+
+	w.Header().Set("Content-Type", "application/json")
+	defer func() {
+		responser := database.MessageRespone{
+			Message: message,
+			Body: nil,
+		}
+		json.NewEncoder(w).Encode(responser)
+		fmt.Println("")
+	}()
 
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		w.WriteHeader(http.StatusBadRequest)
+		message = err.Error()
+		return
+	} else {
+		if errrStr := checkingSignUp(p); errrStr != "" {
+			w.WriteHeader(http.StatusBadRequest)
+			message = errrStr
+			return 
+		} 
+		w.WriteHeader(http.StatusCreated)
+		message = "created"
 		return
 	}
-
-	w.Header().Set("Content-Type", "application/json")
-	// check information and return bugs 
-	
-	if errrStr := checkingSignUp(p); errrStr != "" {
-		responser := database.MessageRespone{
-			Message: errrStr,
-			Body: nil,
-		}
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(responser)
-		return 
-	}
-	// if no bug -> return OK
-	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(`{"message": "created"}`))
-	fmt.Println("")
 }
 
 func logOutGet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("logOutGet")
 
+	var message string
 	jwtStr := r.Header["Access-Token"][0]
 	w.Header().Set("Content-Type", "application/json")
+	defer func() {
+		responser := database.MessageRespone{
+			Message: message,
+			Body: nil,
+		}
+		json.NewEncoder(w).Encode(responser)
+		fmt.Println("")
+	}()
 
 	// check information and return bugs 
 	if (!isInLoginDB(jwtStr)) {	
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"message": "You are not logging in"}`))
-		return
+		message = "your access-token is wrong"
+		return 
 	}
 
 	// remove in login DB
 	if err:= removeInLoginDB(jwtStr); err == false {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(`{"message": "Internal Server Error"}`))
+		message = "Internal Server Error"
 		return
 	}
 
 	// if no bug -> return OK
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(`{"message": "OK"}`))
-	fmt.Println("")
+	message = "OK"
 }
 
 func getRandomGet(w http.ResponseWriter, r *http.Request){
 	fmt.Println("getRandomGet")
 
+	message, body := "", ""
 	jwtStr := r.Header["Access-Token"][0]
 	w.Header().Set("Content-Type", "application/json")
+	defer func() {
+		responser := database.MessageRespone{
+			Message: message,
+			Body: body,
+		}
+		json.NewEncoder(w).Encode(responser)
+		fmt.Println("")
+	}()
+
 	// check information and return bugs 
 	if (!isInLoginDB(jwtStr)) {	
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"message": "You are not logging in"}`))
+		message = "your access-token is wrong"
 		return
 	}
 	// if no bug -> return OK
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(`{"message": "you are logging in", "body": "success!"}`))
-	fmt.Println("")
+	message = "OK"
+	body = "this is random-getting"
 }

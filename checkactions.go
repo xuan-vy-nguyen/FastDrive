@@ -19,7 +19,7 @@ func checkingLogin(p database.LoginAccount) (database.JWTRespone, int) {
 	}
 
 	// check if user has login in another place
-	if !checkAccInLoginDB(p) {
+	if checkAccInLoginDB(p) {
 		return reponseJson, 3
 	}
 	token, err := createJWT(p)
