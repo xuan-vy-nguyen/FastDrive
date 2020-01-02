@@ -117,7 +117,7 @@ func logOutGet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// remove in login DB
-	if err:= removeInLoginDB(jwtStr); err == false {
+	if err:= removeInLoginDB(jwtStr); err == true {
 		w.WriteHeader(http.StatusInternalServerError)
 		message = "Internal Server Error"
 		return
