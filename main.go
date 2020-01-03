@@ -7,13 +7,22 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var MongoURI = //"mongodb+srv://xuanvyClone1:az1731999@cluster0-ktqay.mongodb.net/test?retryWrites=true&w=majority"
+	"mongodb+srv://xuanvy99:az1731999@cluster0-mzeio.mongodb.net/test?retryWrites=true&w=majority" 
+	// "mongodb://localhost:27017"
+var Collection = "app"
+var LoginDB = "LoginDB"
+var SignDB = "SignDB"
+
 func main() {
 	r := mux.NewRouter()
 	api := r.PathPrefix("/api/v1").Subrouter()
 	api.HandleFunc("/logout", logOutGet).Methods(http.MethodGet)
-	api.HandleFunc("/get", getRandomGet).Methods(http.MethodGet)
+	api.HandleFunc("/random", getRandomGet).Methods(http.MethodGet)
 	api.HandleFunc("/login", loginPost).Methods(http.MethodPost)
 	api.HandleFunc("/signup", signUpPost).Methods(http.MethodPost)
+	api.HandleFunc("/account", getAcountGet).Methods(http.MethodGet)
+	api.HandleFunc("/account", updateAcountPut).Methods(http.MethodPut)
 	// api.HandleFunc("", put).Methods(http.MethodPut)
 	// api.HandleFunc("", delete).Methods(http.MethodDelete)
 	// api.HandleFunc("", notFound)

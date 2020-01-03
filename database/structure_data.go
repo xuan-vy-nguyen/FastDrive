@@ -17,8 +17,14 @@ type LoginAccount struct {
 type SignUpAccount struct {
 	Mail string `json:"mail"`
 	Pass string `json:"pass"`
-	Name string `json:"name"`
+	UserName string `json:"username"`
+	BirthDay string `json:"birthday"`
 	PhoneNumber string `json:"phoneNumber"`
+	FirstName string `json:"firstname"`
+	LastName string `json:"lastname"`
+	IsActive bool `json:"isactive"`
+	CreateAt string `json:"createat"`
+	IsDeleted bool `json:"isdeleted"`
 }
 
 // use for JWT

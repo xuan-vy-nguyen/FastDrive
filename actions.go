@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"fmt"
+	"time"
 	"github.com/xuan-vy-nguyen/SE_Project01/database"
 )
 
@@ -19,13 +20,18 @@ func loginPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var message string
-	JsonToken, errr := checkingLogin(p)
+	JsonToken, UserInformation, errr := checkingLogin(p)
 	
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
+		UserInformation.Pass = ""
+		type bodyStruct struct {
+			Tokens	interface{} `json:"tokens"`
+			Users	interface{} `json:"user"`
+		}
 		responser := database.MessageRespone{
 			Message: message,
-			Body: JsonToken,
+			Body: bodyStruct{Tokens:JsonToken, Users : UserInformation},
 		}
 		json.NewEncoder(w).Encode(responser)
 		fmt.Println("")
@@ -49,7 +55,7 @@ func loginPost(w http.ResponseWriter, r *http.Request) {
 			message = "email is wrong"
 			return
 		default:
-			errDB := addLoginDB(p.Mail, JsonToken.AccessToken)
+			errDB := addOneLoginDB(p.Mail, JsonToken.AccessToken)
 			if errDB {	// if have a bug when add acc to LoginDB
 				w.WriteHeader(http.StatusInternalServerError)
 				message = "server has something wrong"
@@ -88,6 +94,15 @@ func signUpPost(w http.ResponseWriter, r *http.Request) {
 			message = errrStr
 			return 
 		} 
+		// update information
+		p.CreateAt = time.Now().Format("2006/01/02")
+		p.IsDeleted = false
+		p.IsActive = false
+		if errrStr := addOneSignUpDB(p); errrStr != "" {
+			w.WriteHeader(http.StatusBadRequest)
+			message = errrStr
+			return 
+		}
 		w.WriteHeader(http.StatusCreated)
 		message = "created"
 		return
@@ -117,7 +132,7 @@ func logOutGet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// remove in login DB
-	if err:= removeInLoginDB(jwtStr); err == true {
+	if err:= deleteOneLoginDB(jwtStr); err == true {
 		w.WriteHeader(http.StatusInternalServerError)
 		message = "Internal Server Error"
 		return
@@ -153,4 +168,101 @@ func getRandomGet(w http.ResponseWriter, r *http.Request){
 	w.WriteHeader(http.StatusOK)
 	message = "OK"
 	body = "this is random-getting"
+}
+
+func getAcountGet(w http.ResponseWriter, r *http.Request){
+	fmt.Println("getAccountGet")
+
+	message:= ""
+	var body database.SignUpAccount
+	jwtStr := r.Header["Access-Token"][0]
+	w.Header().Set("Content-Type", "application/json")
+	defer func() {
+		responser := database.MessageRespone{
+			Message: message,
+			Body: body,
+		}
+		json.NewEncoder(w).Encode(responser)
+		fmt.Println("")
+	}()
+
+	// check information and return bugs 
+	acc, err := getOneLoginDB(jwtStr)
+	if err == true {	
+		w.WriteHeader(http.StatusBadRequest)
+		message = "your access-token is wrong"
+		return
+	}
+
+	// if no bug -> return OK
+	if body, err = getOneSignUpDB(acc.Mail); err == true {
+		w.WriteHeader(http.StatusInternalServerError)
+		message = "server has something not true"
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	message = "OK"
+}
+func updateAcountPut(w http.ResponseWriter, r *http.Request){
+	fmt.Println("updateAcountPut")
+
+	var p database.SignUpAccount
+	var message string
+	jwtStr := r.Header["Access-Token"][0]
+
+	w.Header().Set("Content-Type", "application/json")
+	defer func() {
+		responser := database.MessageRespone{
+			Message: message,
+			Body: nil,
+		}
+		json.NewEncoder(w).Encode(responser)
+		fmt.Println("")
+	}()
+
+	err := json.NewDecoder(r.Body).Decode(&p)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		message = err.Error()
+		return
+	} else {
+		// Update LoginDB
+		newLogin := database.LoginDB{
+			Mail: p.Mail, 
+			Token: jwtStr,
+		}
+		// get old mail
+		oldLogin, err := getOneLoginDB(jwtStr);
+		if err == true {
+			w.WriteHeader(http.StatusInternalServerError)
+			message = "something wrong"
+			return
+		}
+		// checking 
+		if errrStr := checkingSignUp(p); errrStr != ""  {
+			if (errrStr == "email is used by another user" && p.Mail == oldLogin.Mail){
+				fmt.Println("No conflict")
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				message = errrStr
+				return 
+			}
+		} 
+		// Update LoginDB
+		if err := updateOneLoginDB(oldLogin.Mail, newLogin); err == true {
+			w.WriteHeader(http.StatusInternalServerError)
+			message = "something wrong"
+			return
+		}
+		// Update SignUpDB
+		if err := updateOneSignUpDB(oldLogin.Mail, p); err == true {
+			w.WriteHeader(http.StatusInternalServerError)
+			message = "something wrong"
+			return
+		}
+		// return OK
+		w.WriteHeader(http.StatusCreated)
+		message = "created"
+		return
+	}
 }
