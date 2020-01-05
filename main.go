@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 	"github.com/gorilla/mux"
-	"github.com/xuan-vy-nguyen.SE_Project01/test"
+	"github.com/xuan-vy-nguyen/SE_Project01/test"
 )
 
 var MongoURI = //"mongodb+srv://xuanvyClone1:az1731999@cluster0-ktqay.mongodb.net/test?retryWrites=true&w=majority"
