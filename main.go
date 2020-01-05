@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"os"
 	"github.com/gorilla/mux"
-	"github.com/xuan-vy-nguyen/SE_Project01/test"
 )
 
 var MongoURI = //"mongodb+srv://xuanvyClone1:az1731999@cluster0-ktqay.mongodb.net/test?retryWrites=true&w=majority"
@@ -16,7 +15,6 @@ var LoginDB = "LoginDB"
 var SignDB = "SignDB"
 
 func main() {
-	test.testing()
 	r := mux.NewRouter()
 	api := r.PathPrefix("/api/v1").Subrouter()
 	api.HandleFunc("/logout", logOutGet).Methods(http.MethodGet)
