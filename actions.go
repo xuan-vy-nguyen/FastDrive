@@ -26,12 +26,21 @@ func loginPost(w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		UserInformation.Pass = ""
 		type bodyStruct struct {
-			Tokens	interface{} `json:"tokens"`
-			Users	interface{} `json:"user"`
+			Tokens	string `json:"access-tokens"`
+			Users	string `json:"username"`
+			BirthDay string 	`json:"birthday"`
+			CreateAt string 	`json:"createat"`
+			Phone	string	`json:"phoneNumber"`
 		}
 		responser := database.MessageRespone{
 			Message: message,
-			Body: bodyStruct{Tokens:JsonToken, Users : UserInformation},
+			Body: bodyStruct{
+				Tokens: JsonToken.AccessToken, 
+				Users: UserInformation.UserName,
+				BirthDay: UserInformation.BirthDay,
+				Phone: UserInformation.PhoneNumber,
+				CreateAt: UserInformation.CreateAt,
+			},
 		}
 		json.NewEncoder(w).Encode(responser)
 		fmt.Println("")
