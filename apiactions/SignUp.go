@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/xuan-vy-nguyen/SE_Project01/datastruct"
+	"github.com/xuan-vy-nguyen/SE_Project01/dbactions"
 )
 
 // SignUpPost is an API.
@@ -34,7 +35,7 @@ func SignUpPost(w http.ResponseWriter, r *http.Request) {
 		message = err.Error()
 		return
 	} else {
-		if errrStr := dbactions.CheckingSignUp(p); errrStr != "" {
+		if errrStr := CheckingSignUp(p); errrStr != "" {
 			w.WriteHeader(http.StatusBadRequest)
 			message = errrStr
 			return
@@ -74,7 +75,7 @@ func CheckingSignUp(infor datastruct.SignUpAccount) string {
 	}
 
 	// check exist account in DB
-	if existInSignUpDB(infor.Mail) {
+	if dbactions.ExistInSignUpDB(infor.Mail) {
 		return "email is used by another user"
 	}
 	// insert to mongoDB and return err, if err = "" => no err

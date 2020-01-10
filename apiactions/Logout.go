@@ -2,51 +2,43 @@ package apiactions
 
 import (
 	"encoding/json"
-	"net/http"
 	"fmt"
-	"time"
+	"net/http"
+
 	"github.com/xuan-vy-nguyen/SE_Project01/datastruct"
+	"github.com/xuan-vy-nguyen/SE_Project01/dbactions"
 )
 
-func SignUpPost(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("signUpPost")
+func logOutGet(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("logOutGet")
 
-	var p datastruct.SignUpAccount
 	var message string
-
+	jwtStr := r.Header["Access-Token"][0]
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
 		responser := datastruct.MessageRespone{
 			Message: message,
-			Body: nil,
+			Body:    nil,
 		}
 		json.NewEncoder(w).Encode(responser)
 		fmt.Println("")
 	}()
 
-	err := json.NewDecoder(r.Body).Decode(&p)
-	if err != nil {
+	// check information and return bugs
+	if !dbactions.IsInLoginDB(jwtStr) {
 		w.WriteHeader(http.StatusBadRequest)
-		message = err.Error()
-		return
-	} 
-	else {
-		if errrStr := checkingSignUp(p); errrStr != "" {
-			w.WriteHeader(http.StatusBadRequest)
-			message = errrStr
-			return 
-		} 
-		// update information
-		p.CreateAt = time.Now().Format("2006/01/02")
-		p.IsDeleted = false
-		p.IsActive = false
-		if errrStr := addOneSignUpDB(p); errrStr != "" {
-			w.WriteHeader(http.StatusBadRequest)
-			message = errrStr
-			return 
-		}
-		w.WriteHeader(http.StatusCreated)
-		message = "created"
+		message = "your access-token is wrong"
 		return
 	}
+
+	// remove in login DB
+	if err := dbactions.DeleteOneLoginDB(jwtStr); err == true {
+		w.WriteHeader(http.StatusInternalServerError)
+		message = "Internal Server Error"
+		return
+	}
+
+	// if no bug -> return OK
+	w.WriteHeader(http.StatusOK)
+	message = "OK"
 }

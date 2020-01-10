@@ -91,7 +91,7 @@ func GetOneSignUpDB(p string) (datastruct.SignUpAccount, bool) { // return err
 }
 
 // AddOneSignUpDB is ok
-func AddOneSignUpDB(infor datastructSignUpAccount) string {
+func AddOneSignUpDB(infor datastruct.SignUpAccount) string {
 	clientOptions := options.Client().ApplyURI(MongoURI)
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
@@ -124,7 +124,7 @@ func AddOneSignUpDB(infor datastructSignUpAccount) string {
 }
 
 // UpdateOneSignUpDB is ok
-func UpdateOneSignUpDB(oldMail string, infor datastructSignUpAccount) bool { // err
+func UpdateOneSignUpDB(oldMail string, infor datastruct.SignUpAccount) bool { // err
 	clientOptions := options.Client().ApplyURI(MongoURI)
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)

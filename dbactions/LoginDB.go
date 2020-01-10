@@ -100,7 +100,7 @@ func AddOneLoginDB(mail_ string, token_ string) bool { // return err
 	// insert to MongoDB
 	collection := client.Database(Collection).Collection(LoginDB)
 
-	newElement := datastructLoginDB{
+	newElement := datastruct.LoginDB{
 		Mail:  mail_,
 		Token: token_,
 	}
