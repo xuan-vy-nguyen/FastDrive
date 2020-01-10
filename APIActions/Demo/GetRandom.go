@@ -1,11 +1,11 @@
-package APIActions
+package apiactions
 
 import (
 	"encoding/json"
 	"net/http"
 	"fmt"
 	"time"
-	"github.com/xuan-vy-nguyen/SE_Project01/DataStruct"
+	"github.com/xuan-vy-nguyen/SE_Project01/datastruct"
 )
 
 func GetRandomGet(w http.ResponseWriter, r *http.Request){
@@ -15,7 +15,7 @@ func GetRandomGet(w http.ResponseWriter, r *http.Request){
 	jwtStr := r.Header["Access-Token"][0]
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
-		responser := DataStruct.MessageRespone{
+		responser := datastruct.MessageRespone{
 			Message: message,
 			Body: body,
 		}

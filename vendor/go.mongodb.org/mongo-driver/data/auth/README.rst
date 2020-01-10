@@ -28,7 +28,7 @@ array of test case objects, each of which have the following keys:
     that do not utilize a password, this may be the entire ``userinfo`` token
     from the connection string.
   - ``password``: A string containing the password.
-  - ``source``: A string containing the authentication DataStruct.
+  - ``source``: A string containing the authentication datastruct.
   - ``mechanism``: A string containing the authentication mechanism.  A null value for
     this key is used to indicate that a mechanism wasn't specified and that mechanism
     negotiation is required.  Test harnesses should modify the mechanism test as needed

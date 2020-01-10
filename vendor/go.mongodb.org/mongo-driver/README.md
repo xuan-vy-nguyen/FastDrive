@@ -140,7 +140,7 @@ MONGODB_URI="mongodb://localhost:27017,localhost:27018,localhost:27018/?replicaS
 
 ### Testing Auth and SSL
 
-To test authentication and SSL, first set up a MongoDB cluster with auth and SSL configured. Testing authentication requires a user with the `root` role on the `admin` DataStruct. The Go Driver repository comes with example certificates in the `data/certificates` directory. These certs can be used for testing. Here is an example command that would run a mongod with SSL correctly configured for tests:
+To test authentication and SSL, first set up a MongoDB cluster with auth and SSL configured. Testing authentication requires a user with the `root` role on the `admin` datastruct. The Go Driver repository comes with example certificates in the `data/certificates` directory. These certs can be used for testing. Here is an example command that would run a mongod with SSL correctly configured for tests:
 
 ```
 mongod \

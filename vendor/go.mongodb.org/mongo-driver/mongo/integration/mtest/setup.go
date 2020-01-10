@@ -27,7 +27,7 @@ import (
 )
 
 const (
-	// TestDb specifies the name of default test DataStruct.
+	// TestDb specifies the name of default test datastruct.
 	TestDb = "test"
 )
 

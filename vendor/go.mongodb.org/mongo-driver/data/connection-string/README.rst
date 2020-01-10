@@ -41,7 +41,7 @@ array of test case objects, each of which have the following keys:
     that do not utilize a password, this may be the entire ``userinfo`` token
     (as discussed in `RFC 2396 <https://www.ietf.org/rfc/rfc2396.txt>`_).
   - ``password``: A string containing the parsed password.
-  - ``db``: A string containing the parsed authentication DataStruct. For legacy
+  - ``db``: A string containing the parsed authentication datastruct. For legacy
     implementations that support namespaces (databases and collections) this may
     be the full namespace eg: ``<db>.<coll>``
 - ``options``: An object containing key/value pairs for each parsed query string

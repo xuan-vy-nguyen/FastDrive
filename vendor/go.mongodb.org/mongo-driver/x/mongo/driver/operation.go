@@ -665,7 +665,7 @@ func (op Operation) createQueryWireMessage(dst []byte, desc description.Selected
 	wmindex, dst = wiremessage.AppendHeaderStart(dst, info.requestID, 0, wiremessage.OpQuery)
 	dst = wiremessage.AppendQueryFlags(dst, flags)
 	// FullCollectionName
-	dst = append(dst, op.DataStruct...)
+	dst = append(dst, op.datastruct...)
 	dst = append(dst, dollarCmd[:]...)
 	dst = append(dst, 0x00)
 	dst = wiremessage.AppendQueryNumberToSkip(dst, 0)

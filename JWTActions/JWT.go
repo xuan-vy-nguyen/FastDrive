@@ -2,16 +2,16 @@ package JWTActions
 
 import(
 	"github.com/dgrijalva/jwt-go"
-	"github.com/xuan-vy-nguyen/SE_Project01/DataStruct"
+	"github.com/xuan-vy-nguyen/SE_Project01/datastruct"
 	"time"
 )
 
 var jwtKey = []byte("my_secret_key")
 
-func CreateJWT(p DataStructLoginAccount)(string, bool)  {	// return tokenstring, err
+func CreateJWT(p datastructLoginAccount)(string, bool)  {	// return tokenstring, err
 	expirationTime := time.Now().Add(100000 * time.Hour)
 	// Create the JWT claims, which includes the username and expiry time
-	claims := &DataStructClaims{
+	claims := &datastructClaims{
 		Mail: p.Mail,
 		StandardClaims: jwt.StandardClaims{
 			// In JWT, the expiry time is expressed as unix milliseconds

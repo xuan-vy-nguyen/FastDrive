@@ -177,7 +177,7 @@ tests:
             z:
               $numberInt: "3"
   -
-    description: Executing a watch helper on a Database results in notifications for changes to all collections in the specified DataStruct.
+    description: Executing a watch helper on a Database results in notifications for changes to all collections in the specified datastruct.
     minServerVersion: "3.8.0"
     target: database
     topology:

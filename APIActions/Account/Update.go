@@ -1,23 +1,23 @@
-package APIActions
+package apiactions
 
 import (
 	"encoding/json"
 	"net/http"
 	"fmt"
 	"time"
-	"github.com/xuan-vy-nguyen/SE_Project01/DataStruct"
+	"github.com/xuan-vy-nguyen/SE_Project01/datastruct"
 )
 
 func updateAcountPut(w http.ResponseWriter, r *http.Request){
 	fmt.Println("updateAcountPut")
 
-	var p DataStruct.SignUpAccount
+	var p datastruct.SignUpAccount
 	var message string
 	jwtStr := r.Header["Access-Token"][0]
 
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
-		responser := DataStruct.MessageRespone{
+		responser := datastruct.MessageRespone{
 			Message: message,
 			Body: nil,
 		}
@@ -32,7 +32,7 @@ func updateAcountPut(w http.ResponseWriter, r *http.Request){
 		return
 	} else {
 		// Update LoginDB
-		newLogin := DataStruct.LoginDB{
+		newLogin := datastruct.LoginDB{
 			Mail: p.Mail, 
 			Token: jwtStr,
 		}

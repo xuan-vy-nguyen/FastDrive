@@ -1,22 +1,22 @@
-package APIActions
+package apiactions
 
 import (
 	"encoding/json"
 	"net/http"
 	"fmt"
 	"time"
-	"github.com/xuan-vy-nguyen/SE_Project01/DataStruct"
+	"github.com/xuan-vy-nguyen/SE_Project01/datastruct"
 )
 
 func SignUpPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("signUpPost")
 
-	var p DataStruct.SignUpAccount
+	var p datastruct.SignUpAccount
 	var message string
 
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
-		responser := DataStruct.MessageRespone{
+		responser := datastruct.MessageRespone{
 			Message: message,
 			Body: nil,
 		}
@@ -29,7 +29,8 @@ func SignUpPost(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		message = err.Error()
 		return
-	} else {
+	} 
+	else {
 		if errrStr := checkingSignUp(p); errrStr != "" {
 			w.WriteHeader(http.StatusBadRequest)
 			message = errrStr

@@ -324,7 +324,7 @@ func (r *RevokedError) Error() string {
 	return "knownhosts: key is revoked"
 }
 
-// check checks a key against the host DataStruct. This should not be
+// check checks a key against the host datastruct. This should not be
 // used for verifying certificates.
 func (db *hostKeyDB) check(address string, remote net.Addr, remoteKey ssh.PublicKey) error {
 	if revoked := db.revoked[string(remoteKey.Marshal())]; revoked != nil {

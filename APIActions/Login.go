@@ -1,19 +1,17 @@
-package APIAction
+package apiactions
 
 import (
 	"encoding/json"
 	"net/http"
 	"fmt"
-	"time"
-	"github.com/xuan-vy-nguyen/SE_Project01/DataStruct"
-	"regexp"
-	"strings"
+	"github.com/xuan-vy-nguyen/SE_Project01/datastruct"
+	"github.com/xuan-vy-nguyen/SE_Project01/dbactions"
 )
 
 func LoginPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("loginPost")
 
-	var p DataStruct.LoginAccount
+	var p datastruct.LoginAccount
 
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
@@ -22,7 +20,7 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var message string
-	JsonToken, UserInformation, errr := checkingLogin(p)
+	JsonToken, UserInformation, errr := CheckingLogin(p)
 	
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
@@ -34,7 +32,7 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 			CreateAt string 	`json:"createat"`
 			Phone	string	`json:"phoneNumber"`
 		}
-		responser := DataStruct.MessageRespone{
+		responser := database.MessageRespone{
 			Message: message,
 			Body: bodyStruct{
 				Tokens: JsonToken.AccessToken, 
@@ -66,7 +64,7 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 			message = "email is wrong"
 			return
 		default:
-			errDB := addOneLoginDB(p.Mail, JsonToken.AccessToken)
+			errDB := dbactions.AddOneLoginDB(p.Mail, JsonToken.AccessToken)
 			if errDB {	// if have a bug when add acc to LoginDB
 				w.WriteHeader(http.StatusInternalServerError)
 				message = "server has something wrong"
@@ -78,11 +76,11 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func checkingLogin(p DataStruct.LoginAccount) (DataStruct.JWTRespone, DataStruct.SignUpAccount, int) {
-	var reponseJson DataStruct.JWTRespone
-	var userInformation DataStruct.SignUpAccount
+func CheckingLogin(p datastruct.LoginAccount) (datastruct.JWTRespone, datastruct.SignUpAccount, int) {
+	var reponseJson datastruct.JWTRespone
+	var userInformation datastruct.SignUpAccount
 	// check if user pass wrong
-	switch (checkAccInSignUpDB(p)){
+	switch (dbactions.CheckAccInSignUpDB(p)){
 		case 0:	// wrong user - pass
 			return reponseJson, userInformation, 0
 		case 1:	// server bug
@@ -93,18 +91,18 @@ func checkingLogin(p DataStruct.LoginAccount) (DataStruct.JWTRespone, DataStruct
 	}
 
 	// check if user has login in another place
-	if checkAccInLoginDB(p) {
+	if dbactions.CheckAccInLoginDB(p) {
 		return reponseJson, userInformation, 3
 	}
 	token, err := createJWT(p)
 	if err {
 		return reponseJson, userInformation, 1	// server bug
 	}
-	userInformation, err = getOneSignUpDB(p.Mail)
+	userInformation, err = dbactions.GetOneSignUpDB(p.Mail)
 	if err {
 		return reponseJson, userInformation, 1	// server bug
 	}
-	reponseJson = DataStruct.JWTRespone{
+	reponseJson = datastruct.JWTRespone{
 		AccessToken: token,
 		RefreshToken: "",
 	}
