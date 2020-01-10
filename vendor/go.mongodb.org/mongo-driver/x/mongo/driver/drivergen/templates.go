@@ -7,14 +7,14 @@ import (
 )
 
 // commandCollectionDatabaseTmpl is the template used to set the command name when the command can
-// apply to either a collection or a datastruct.
+// apply to either a collection or a database.
 var commandCollectionDatabaseTmpl *template.Template
 
 // commandCollectionTmpl is the template used to set the command name when the parameter will be a
 // collection.
 var commandCollectionTmpl *template.Template
 
-// commandDatabaseTmpl is the template used to set the command name when the parameter will be a datastruct.
+// commandDatabaseTmpl is the template used to set the command name when the parameter will be a database.
 var commandDatabaseTmpl *template.Template
 
 var commandParamDocumentTmpl *template.Template

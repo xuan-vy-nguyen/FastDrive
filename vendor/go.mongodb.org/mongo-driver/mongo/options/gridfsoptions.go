@@ -29,9 +29,9 @@ var DefaultRevision int32 = -1
 type BucketOptions struct {
 	Name           *string                    // The bucket name. Defaults to "fs".
 	ChunkSizeBytes *int32                     // The chunk size in bytes. Defaults to 255KB.
-	WriteConcern   *writeconcern.WriteConcern // The write concern for the bucket. Defaults to the write concern of the datastruct.
-	ReadConcern    *readconcern.ReadConcern   // The read concern for the bucket. Defaults to the read concern of the datastruct.
-	ReadPreference *readpref.ReadPref         // The read preference for the bucket. Defaults to the read preference of the datastruct.
+	WriteConcern   *writeconcern.WriteConcern // The write concern for the bucket. Defaults to the write concern of the database.
+	ReadConcern    *readconcern.ReadConcern   // The read concern for the bucket. Defaults to the read concern of the database.
+	ReadPreference *readpref.ReadPref         // The read preference for the bucket. Defaults to the read preference of the database.
 }
 
 // GridFSBucket creates a new *BucketOptions

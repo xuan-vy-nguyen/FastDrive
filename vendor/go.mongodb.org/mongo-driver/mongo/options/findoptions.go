@@ -15,7 +15,7 @@ type FindOptions struct {
 	AllowPartialResults *bool          // If true, allows partial results to be returned if some shards are down.
 	BatchSize           *int32         // Specifies the number of documents to return in every batch.
 	Collation           *Collation     // Specifies a collation to be used
-	Comment             *string        // Specifies a string to help trace the operation through the datastruct.
+	Comment             *string        // Specifies a string to help trace the operation through the database.
 	CursorType          *CursorType    // Specifies the type of cursor to use
 	Hint                interface{}    // Specifies the index to use.
 	Limit               *int64         // Sets a limit on the number of results to return.
@@ -58,7 +58,7 @@ func (f *FindOptions) SetCollation(collation *Collation) *FindOptions {
 	return f
 }
 
-// SetComment specifies a string to help trace the operation through the datastruct.
+// SetComment specifies a string to help trace the operation through the database.
 func (f *FindOptions) SetComment(comment string) *FindOptions {
 	f.Comment = &comment
 	return f
@@ -235,7 +235,7 @@ type FindOneOptions struct {
 	AllowPartialResults *bool          // If true, allows partial results to be returned if some shards are down.
 	BatchSize           *int32         // Specifies the number of documents to return in every batch.
 	Collation           *Collation     // Specifies a collation to be used
-	Comment             *string        // Specifies a string to help trace the operation through the datastruct.
+	Comment             *string        // Specifies a string to help trace the operation through the database.
 	CursorType          *CursorType    // Specifies the type of cursor to use
 	Hint                interface{}    // Specifies the index to use.
 	Max                 interface{}    // Sets an exclusive upper bound for a specific index
@@ -275,7 +275,7 @@ func (f *FindOneOptions) SetCollation(collation *Collation) *FindOneOptions {
 	return f
 }
 
-// SetComment specifies a string to help trace the operation through the datastruct.
+// SetComment specifies a string to help trace the operation through the database.
 func (f *FindOneOptions) SetComment(comment string) *FindOneOptions {
 	f.Comment = &comment
 	return f
