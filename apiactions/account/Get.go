@@ -9,7 +9,7 @@ import (
 	"github.com/xuan-vy-nguyen/SE_Project01/dbactions"
 )
 
-func getAcountGet(w http.ResponseWriter, r *http.Request) {
+func GetAcountGet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("getAccountGet")
 
 	message := ""
