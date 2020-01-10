@@ -13,12 +13,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/writeconcern"
 )
 
-// DatabaseOptions represent all possible options to configure a Database.
+// DatabaseOptions represent all possible options to configure a DataStruct.
 type DatabaseOptions struct {
-	ReadConcern    *readconcern.ReadConcern   // The read concern for operations in the database.
-	WriteConcern   *writeconcern.WriteConcern // The write concern for operations in the database.
-	ReadPreference *readpref.ReadPref         // The read preference for operations in the database.
-	Registry       *bsoncodec.Registry        // The registry to be used to construct BSON encoders and decoders for the database.
+	ReadConcern    *readconcern.ReadConcern   // The read concern for operations in the DataStruct.
+	WriteConcern   *writeconcern.WriteConcern // The write concern for operations in the DataStruct.
+	ReadPreference *readpref.ReadPref         // The read preference for operations in the DataStruct.
+	Registry       *bsoncodec.Registry        // The registry to be used to construct BSON encoders and decoders for the DataStruct.
 }
 
 // Database creates a new DatabaseOptions instance
@@ -26,25 +26,25 @@ func Database() *DatabaseOptions {
 	return &DatabaseOptions{}
 }
 
-// SetReadConcern sets the read concern for the database.
+// SetReadConcern sets the read concern for the DataStruct.
 func (d *DatabaseOptions) SetReadConcern(rc *readconcern.ReadConcern) *DatabaseOptions {
 	d.ReadConcern = rc
 	return d
 }
 
-// SetWriteConcern sets the write concern for the database.
+// SetWriteConcern sets the write concern for the DataStruct.
 func (d *DatabaseOptions) SetWriteConcern(wc *writeconcern.WriteConcern) *DatabaseOptions {
 	d.WriteConcern = wc
 	return d
 }
 
-// SetReadPreference sets the read preference for the database.
+// SetReadPreference sets the read preference for the DataStruct.
 func (d *DatabaseOptions) SetReadPreference(rp *readpref.ReadPref) *DatabaseOptions {
 	d.ReadPreference = rp
 	return d
 }
 
-// SetRegistry sets the bsoncodec Registry for the database.
+// SetRegistry sets the bsoncodec Registry for the DataStruct.
 func (d *DatabaseOptions) SetRegistry(r *bsoncodec.Registry) *DatabaseOptions {
 	d.Registry = r
 	return d

@@ -1,4 +1,4 @@
-module test
+module SERVER
 
 go 1.13
 

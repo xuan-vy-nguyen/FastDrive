@@ -15,4 +15,4 @@ name = "DropDatabaseResult"
 
 [response.field.dropped]
 type = "string"
-documentation = "The dropped database."
+documentation = "The dropped DataStruct."

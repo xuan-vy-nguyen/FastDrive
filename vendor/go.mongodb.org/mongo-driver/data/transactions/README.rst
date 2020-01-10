@@ -119,7 +119,7 @@ Each YAML file has the following keys:
   - ``clientOptions``: Optional, parameters to pass to MongoClient().
 
   - ``failPoint``: Optional, a server failpoint to enable expressed as the
-    configureFailPoint command to run on the admin database. This option and
+    configureFailPoint command to run on the admin DataStruct. This option and
     ``useMultipleMongoses: true`` are mutually exclusive.
 
   - ``sessionOptions``: Optional, parameters to pass to

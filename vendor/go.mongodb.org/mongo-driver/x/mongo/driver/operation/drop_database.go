@@ -35,7 +35,7 @@ type DropDatabase struct {
 }
 
 type DropDatabaseResult struct {
-	// The dropped database.
+	// The dropped DataStruct.
 	Dropped string
 }
 

@@ -262,7 +262,7 @@
       }
     },
     {
-      "description": "Executing a watch helper on a Database results in notifications for changes to all collections in the specified database.",
+      "description": "Executing a watch helper on a Database results in notifications for changes to all collections in the specified DataStruct.",
       "minServerVersion": "3.8.0",
       "target": "database",
       "topology": [

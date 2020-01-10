@@ -5,24 +5,19 @@ import (
 	"net/http"
 	"os"
 	"github.com/gorilla/mux"
+	"github.com/xuan-vy-nguyen/SE_Project01/APIActions"
 )
 
-var MongoURI = "mongodb+srv://xuanvyClone1:az1731999@cluster0-ktqay.mongodb.net/test?retryWrites=true&w=majority"
-	// "mongodb+srv://xuanvy99:az1731999@cluster0-mzeio.mongodb.net/test?retryWrites=true&w=majority" 
-	// "mongodb://localhost:27017"
-var Collection = "app"
-var LoginDB = "LoginDB"
-var SignDB = "SignDB"
 
 func main() {
 	r := mux.NewRouter()
 	api := r.PathPrefix("/api/v1").Subrouter()
-	api.HandleFunc("/logout", logOutGet).Methods(http.MethodGet)
-	api.HandleFunc("/random", getRandomGet).Methods(http.MethodGet)
-	api.HandleFunc("/login", loginPost).Methods(http.MethodPost)
-	api.HandleFunc("/signup", signUpPost).Methods(http.MethodPost)
-	api.HandleFunc("/account", getAcountGet).Methods(http.MethodGet)
-	api.HandleFunc("/account", updateAcountPut).Methods(http.MethodPut)
+	api.HandleFunc("/logout", APIActions.LogOutGet).Methods(http.MethodGet)
+	api.HandleFunc("/random", APIActions.GetRandomGet).Methods(http.MethodGet)
+	api.HandleFunc("/login", APIActions.LoginPost).Methods(http.MethodPost)
+	api.HandleFunc("/signup", APIActions.SignUpPost).Methods(http.MethodPost)
+	api.HandleFunc("/account", APIActions.GetAcountGet).Methods(http.MethodGet)
+	api.HandleFunc("/account", APIActions.UpdateAcountPut).Methods(http.MethodPut)
 	// api.HandleFunc("", put).Methods(http.MethodPut)
 	// api.HandleFunc("", delete).Methods(http.MethodDelete)
 	// api.HandleFunc("", notFound)

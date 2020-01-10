@@ -28,7 +28,7 @@ var (
 	defaultRunCmdOpts = []*options.RunCmdOptions{options.RunCmd().SetReadPreference(readpref.Primary())}
 )
 
-// Database is a handle to a MongoDB database. It is safe for concurrent use by multiple goroutines.
+// Database is a handle to a MongoDB DataStruct. It is safe for concurrent use by multiple goroutines.
 type Database struct {
 	client         *Client
 	name           string
@@ -90,7 +90,7 @@ func (db *Database) Client() *Client {
 	return db.client
 }
 
-// Name returns the name of the database.
+// Name returns the name of the DataStruct.
 func (db *Database) Name() string {
 	return db.name
 }
@@ -100,7 +100,7 @@ func (db *Database) Collection(name string, opts ...*options.CollectionOptions) 
 	return newCollection(db, name, opts...)
 }
 
-// Aggregate executes an aggregate command the database. This requires MongoDB version >= 3.6 and driver version >=
+// Aggregate executes an aggregate command the DataStruct. This requires MongoDB version >= 3.6 and driver version >=
 // 1.1.0.
 //
 // The pipeline parameter must be a slice of documents, each representing an aggregation stage. The pipeline
@@ -170,7 +170,7 @@ func (db *Database) processRunCommand(ctx context.Context, cmd interface{},
 		Database(db.name).Deployment(db.client.deployment).ReadConcern(db.readConcern).Crypt(db.client.crypt), sess, nil
 }
 
-// RunCommand executes the given command against the database.
+// RunCommand executes the given command against the DataStruct.
 //
 // The runCommand parameter must be a document for the command to be executed. It cannot be nil.
 // This must be an order-preserving type such as bson.D. Map types such as bson.M are not valid.
@@ -276,7 +276,7 @@ func (db *Database) Drop(ctx context.Context) error {
 	return nil
 }
 
-// ListCollections executes a listCollections command and returns a cursor over the collections in the database.
+// ListCollections executes a listCollections command and returns a cursor over the collections in the DataStruct.
 //
 // The filter parameter must be a document containing query operators and can be used to select which collections
 // are included in the result. It cannot be nil. An empty document (e.g. bson.D{}) should be used to include all
@@ -346,7 +346,7 @@ func (db *Database) ListCollections(ctx context.Context, filter interface{}, opt
 }
 
 // ListCollectionNames executes a listCollections command and returns a slice containing the names of the collections
-// in the database. This method requires driver version >= 1.1.0.
+// in the DataStruct. This method requires driver version >= 1.1.0.
 //
 // The filter parameter must be a document containing query operators and can be used to select which collections
 // are included in the result. It cannot be nil. An empty document (e.g. bson.D{}) should be used to include all
@@ -406,7 +406,7 @@ func (db *Database) WriteConcern() *writeconcern.WriteConcern {
 	return db.writeConcern
 }
 
-// Watch returns a change stream for all changes to the corresponding database. See
+// Watch returns a change stream for all changes to the corresponding DataStruct. See
 // https://docs.mongodb.com/manual/changeStreams/ for more information about change streams.
 //
 // The Database must be configured with read concern majority or no read concern for a change stream to be created

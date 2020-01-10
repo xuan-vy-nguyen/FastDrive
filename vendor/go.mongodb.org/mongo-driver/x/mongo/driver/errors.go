@@ -184,7 +184,7 @@ func (we WriteErrors) Error() string {
 	return buf.String()
 }
 
-// Error is a command execution error from the database.
+// Error is a command execution error from the DataStruct.
 type Error struct {
 	Code    int32
 	Message string

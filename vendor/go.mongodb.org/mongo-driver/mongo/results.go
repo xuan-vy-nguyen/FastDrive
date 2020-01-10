@@ -74,9 +74,9 @@ func newListDatabasesResultFromOperation(res operation.ListDatabasesResult) List
 	return ldr
 }
 
-// DatabaseSpecification contains information for a database. This type is returned as part of ListDatabasesResult.
+// DatabaseSpecification contains information for a DataStruct. This type is returned as part of ListDatabasesResult.
 type DatabaseSpecification struct {
-	Name       string // The name of the database.
+	Name       string // The name of the DataStruct.
 	SizeOnDisk int64  // The total size of the database files on disk in bytes.
 	Empty      bool   // Specfies whether or not the database is empty.
 }

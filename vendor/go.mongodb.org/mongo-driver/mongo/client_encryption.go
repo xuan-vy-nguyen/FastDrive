@@ -124,7 +124,7 @@ func (ce *ClientEncryption) Close(ctx context.Context) error {
 	return ce.keyVaultClient.Disconnect(ctx)
 }
 
-// splitNamespace takes a namespace in the form "database.collection" and returns (database name, collection name)
+// splitNamespace takes a namespace in the form "DataStructcollection" and returns (database name, collection name)
 func splitNamespace(ns string) (string, string) {
 	firstDot := strings.Index(ns, ".")
 	if firstDot == -1 {

@@ -4,7 +4,7 @@
 
 //go:generate go run gen.go
 
-// Package runenames provides rune names from the Unicode Character Database.
+// Package runenames provides rune names from the Unicode Character DataStruct.
 // For example, the name for '\u0100' is "LATIN CAPITAL LETTER A WITH MACRON".
 //
 // See https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
