@@ -1,14 +1,15 @@
-package apiactions
+package random
 
 import (
 	"encoding/json"
-	"net/http"
 	"fmt"
-	"time"
+	"net/http"
+
 	"github.com/xuan-vy-nguyen/SE_Project01/datastruct"
+	"github.com/xuan-vy-nguyen/SE_Project01/dbactions"
 )
 
-func GetRandomGet(w http.ResponseWriter, r *http.Request){
+func GetRandomGet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("getRandomGet")
 
 	message, body := "", ""
@@ -17,14 +18,14 @@ func GetRandomGet(w http.ResponseWriter, r *http.Request){
 	defer func() {
 		responser := datastruct.MessageRespone{
 			Message: message,
-			Body: body,
+			Body:    body,
 		}
 		json.NewEncoder(w).Encode(responser)
 		fmt.Println("")
 	}()
 
-	// check information and return bugs 
-	if (!isInLoginDB(jwtStr)) {	
+	// check information and return bugs
+	if !dbactions.IsInLoginDB(jwtStr) {
 		w.WriteHeader(http.StatusBadRequest)
 		message = "your access-token is wrong"
 		return

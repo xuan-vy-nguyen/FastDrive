@@ -1,4 +1,4 @@
-package apiactions
+package account
 
 import (
 	"encoding/json"
@@ -9,36 +9,36 @@ import (
 	"github.com/xuan-vy-nguyen/SE_Project01/dbactions"
 )
 
-func LogOutGet(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("logOutGet")
+func getAcountGet(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("getAccountGet")
 
-	var message string
+	message := ""
+	var body datastruct.SignUpAccount
 	jwtStr := r.Header["Access-Token"][0]
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
 		responser := datastruct.MessageRespone{
 			Message: message,
-			Body:    nil,
+			Body:    body,
 		}
 		json.NewEncoder(w).Encode(responser)
 		fmt.Println("")
 	}()
 
 	// check information and return bugs
-	if !dbactions.IsInLoginDB(jwtStr) {
+	acc, err := dbactions.GetOneLoginDB(jwtStr)
+	if err == true {
 		w.WriteHeader(http.StatusBadRequest)
 		message = "your access-token is wrong"
 		return
 	}
 
-	// remove in login DB
-	if err := dbactions.DeleteOneLoginDB(jwtStr); err == true {
+	// if no bug -> return OK
+	if body, err = dbactions.GetOneSignUpDB(acc.Mail); err == true {
 		w.WriteHeader(http.StatusInternalServerError)
-		message = "Internal Server Error"
+		message = "server has something not true"
 		return
 	}
-
-	// if no bug -> return OK
 	w.WriteHeader(http.StatusOK)
 	message = "OK"
 }

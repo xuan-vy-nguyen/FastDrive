@@ -1,14 +1,16 @@
-package apiactions
+package account
 
 import (
 	"encoding/json"
-	"net/http"
 	"fmt"
-	"time"
+	"net/http"
+
+	"github.com/xuan-vy-nguyen/SE_Project01/apiactions"
 	"github.com/xuan-vy-nguyen/SE_Project01/datastruct"
+	"github.com/xuan-vy-nguyen/SE_Project01/dbactions"
 )
 
-func updateAcountPut(w http.ResponseWriter, r *http.Request){
+func UpdateAcountPut(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("updateAcountPut")
 
 	var p datastruct.SignUpAccount
@@ -19,7 +21,7 @@ func updateAcountPut(w http.ResponseWriter, r *http.Request){
 	defer func() {
 		responser := datastruct.MessageRespone{
 			Message: message,
-			Body: nil,
+			Body:    nil,
 		}
 		json.NewEncoder(w).Encode(responser)
 		fmt.Println("")
@@ -33,34 +35,34 @@ func updateAcountPut(w http.ResponseWriter, r *http.Request){
 	} else {
 		// Update LoginDB
 		newLogin := datastruct.LoginDB{
-			Mail: p.Mail, 
+			Mail:  p.Mail,
 			Token: jwtStr,
 		}
 		// get old mail
-		oldLogin, err := GetOneLoginDB(jwtStr);
+		oldLogin, err := dbactions.GetOneLoginDB(jwtStr)
 		if err == true {
 			w.WriteHeader(http.StatusInternalServerError)
 			message = "something wrong"
 			return
 		}
-		// checking 
-		if errrStr := checkingSignUp(p); errrStr != ""  {
-			if (errrStr == "email is used by another user" && p.Mail == oldLogin.Mail){
+		// checking
+		if errrStr := apiactions.CheckingSignUp(p); errrStr != "" {
+			if errrStr == "email is used by another user" && p.Mail == oldLogin.Mail {
 				fmt.Println("No conflict")
 			} else {
 				w.WriteHeader(http.StatusBadRequest)
 				message = errrStr
-				return 
+				return
 			}
-		} 
+		}
 		// Update LoginDB
-		if err := UpdateOneLoginDB(oldLogin.Mail, newLogin); err == true {
+		if err := dbactions.UpdateOneLoginDB(oldLogin.Mail, newLogin); err == true {
 			w.WriteHeader(http.StatusInternalServerError)
 			message = "something wrong"
 			return
 		}
 		// Update SignUpDB
-		if err := UpdateOneSignUpDB(oldLogin.Mail, p); err == true {
+		if err := dbactions.UpdateOneSignUpDB(oldLogin.Mail, p); err == true {
 			w.WriteHeader(http.StatusInternalServerError)
 			message = "something wrong"
 			return
