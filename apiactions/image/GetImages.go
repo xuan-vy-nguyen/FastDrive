@@ -14,7 +14,6 @@ func GetImage(w http.ResponseWriter, r *http.Request) {
 
 	var p datastruct.ImageRequest
 	var message string
-	var body datastruct.ImageResponse
 
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {

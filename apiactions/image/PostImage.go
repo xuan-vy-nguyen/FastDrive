@@ -13,7 +13,7 @@ import (
 
 // PostImage is used for testing
 func PostImage(w http.ResponseWriter, r *http.Request) {
-	// jwtStr := r.Header["Access-Token"][0]
+	jwtStr := r.Header["Access-Token"][0]
 	filename := r.Header["File-Name"][0]
 	var message string
 
@@ -25,6 +25,14 @@ func PostImage(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responser)
 		fmt.Println("")
 	}()
+
+	// check access token
+	_, err := dbactions.GetOneLoginDB(jwtStr)
+	if err == true {
+		w.WriteHeader(http.StatusBadRequest)
+		message = "your access-token is wrong"
+		return
+	}
 
 	// get image data
 	file, _, err := r.FormFile("image")
