@@ -14,35 +14,23 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("loginPost")
 
 	var p datastruct.LoginAccount
+	var message string
 
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		w.WriteHeader(http.StatusBadRequest)
+		message = err.Error()
 		return
 	}
 
-	var message string
 	JsonToken, UserInformation, errr := CheckingLogin(p)
 
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
 		UserInformation.Pass = ""
-		type bodyStruct struct {
-			Tokens   string `json:"access-tokens"`
-			Users    string `json:"username"`
-			BirthDay string `json:"birthday"`
-			CreateAt string `json:"createat"`
-			Phone    string `json:"phoneNumber"`
-		}
 		responser := datastruct.MessageRespone{
 			Message: message,
-			Body: bodyStruct{
-				Tokens:   JsonToken.AccessToken,
-				Users:    UserInformation.UserName,
-				BirthDay: UserInformation.BirthDay,
-				Phone:    UserInformation.PhoneNumber,
-				CreateAt: UserInformation.CreateAt,
-			},
+			Body:    nil,
 		}
 		json.NewEncoder(w).Encode(responser)
 		fmt.Println("")

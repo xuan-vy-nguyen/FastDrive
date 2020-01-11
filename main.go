@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/xuan-vy-nguyen/SE_Project01/apiactions"
 	"github.com/xuan-vy-nguyen/SE_Project01/apiactions/account"
+	"github.com/xuan-vy-nguyen/SE_Project01/apiactions/image"
 	"github.com/xuan-vy-nguyen/SE_Project01/apiactions/random"
 )
 
@@ -20,6 +21,8 @@ func main() {
 	api.HandleFunc("/signup", apiactions.SignUpPost).Methods(http.MethodPost)
 	api.HandleFunc("/account", account.GetAcountGet).Methods(http.MethodGet)
 	api.HandleFunc("/account", account.UpdateAcountPut).Methods(http.MethodPut)
+	api.HandleFunc("/image", image.GetImage).Methods(http.MethodGet)
+	api.HandleFunc("/image", image.PostImage).Methods(http.MethodPost)
 	// api.HandleFunc("", put).Methods(http.MethodPut)
 	// api.HandleFunc("", delete).Methods(http.MethodDelete)
 	// api.HandleFunc("", notFound)

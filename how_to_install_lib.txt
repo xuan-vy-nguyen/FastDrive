@@ -14,3 +14,6 @@
     https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
     view heroku.logs
     https://devcenter.heroku.com/articles/logging
+
+4. upload images to mongodb
+    https://stackoverflow.com/questions/39039560/upload-image-from-android-to-golang-server-and-save-it-in-mongodb
