@@ -17,3 +17,4 @@
 
 4. upload images to mongodb
     https://stackoverflow.com/questions/39039560/upload-image-from-android-to-golang-server-and-save-it-in-mongodb
+    https://www.mongodb.com/blog/post/quick-start-golang--mongodb--a-quick-look-at-gridfs

@@ -1,53 +1,43 @@
 package dbactions
 
 import (
-	"bytes"
 	"context"
 	"fmt"
 	"log"
-	"os"
 
+	"github.com/xuan-vy-nguyen/SE_Project01/datastruct"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/gridfs"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 // AddOneImageDB insert one image to grid db
-func AddOneImageDB(data []byte, filename string) bool { // return err
+func AddOneImageDB(data []byte, email string, filename string) bool { // return err
 	clientOptions := options.Client().ApplyURI(MongoURI)
 	// Connect to MongoDB
+	clientOptions.SetMaxPoolSize(5)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal(err)
 		return true
 	}
-
 	fmt.Println("Connected to ImageDB!")
 
 	// insert Image to mongoDB
-	bucket, err := gridfs.NewBucket(
-		client.Database(Collection),
-	)
-	if err != nil {
-		log.Fatal(err)
-		os.Exit(1)
-	}
-	uploadStream, err := bucket.OpenUploadStream(
-		filename,
-	)
-	if err != nil {
-		fmt.Println(err)
-		return true
-	}
-	defer uploadStream.Close()
+	collection := client.Database(Collection).Collection(ImageDB)
 
-	fileSize, err := uploadStream.Write(data)
+	newElement := datastruct.ImageDB{
+		Name:  filename,
+		Email: email,
+		Image: data,
+	}
+	insertResult, err := collection.InsertOne(context.TODO(), newElement)
 	if err != nil {
 		log.Fatal(err)
 		return true
 	}
-	log.Printf("Write file to DB was successful. File size: %d M\n", fileSize)
+	fmt.Println("Inserted a single document: ", insertResult)
 
 	// Disconnect
 	err = client.Disconnect(context.TODO())
@@ -62,50 +52,49 @@ func AddOneImageDB(data []byte, filename string) bool { // return err
 }
 
 // GetOneImageDB is ok
-func GetOneImageDB(fileName string) ([]byte, bool) { // return image and err
+func GetOneImageDB(fileName string, jwtStr string) (datastruct.ImageDB, bool) { // return image and err
+	var result datastruct.ImageDB
 	clientOptions := options.Client().ApplyURI(MongoURI)
+
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal(err)
-		return nil, true
+		return result, true
 	}
 
 	fmt.Println("Connected to ImageDB!")
 
-	db := client.Database(Collection)
-	fsFiles := db.Collection("fs.files")
+	// insert Image to mongoDB
+	collection := client.Database(Collection).Collection(ImageDB)
 
-	var results bson.M
-	err = fsFiles.FindOne(context.TODO(), bson.M{}).Decode(&results)
-	if err != nil {
-		log.Fatal(err)
-		return nil, true
+	// find userMail
+	UserInfor, errGetMail := GetOneLoginDB(jwtStr)
+	if errGetMail {
+		return result, true
 	}
 
-	// you can print out the results
-	fmt.Println("result =", results)
-
-	bucket, _ := gridfs.NewBucket(
-		db,
-	)
-	var buf bytes.Buffer
-	dStream, err := bucket.DownloadToStreamByName(fileName, &buf)
-	if err != nil {
-		log.Fatal(err)
-		return nil, true
+	// set filter
+	filter := bson.D{
+		primitive.E{Key: "name", Value: fileName},
+		primitive.E{Key: "email", Value: UserInfor.Mail},
 	}
-	fmt.Printf("File size to download: %v\n", dStream)
+
+	// this errCondition is use below
+	errCondition := collection.FindOne(context.TODO(), filter).Decode(&result)
+	fmt.Println("finding error ", errCondition)
+	if errCondition != nil {
+		return result, true
+	}
 
 	// Disconnect
 	err = client.Disconnect(context.TODO())
 	if err != nil {
 		log.Fatal(err)
-		return nil, true
+		return result, true
 	}
-
 	fmt.Println("Connection to ImageDB closed.")
 
 	// return
-	return buf.Bytes(), false
+	return result, false
 }

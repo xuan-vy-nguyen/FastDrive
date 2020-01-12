@@ -26,8 +26,8 @@ func PostImage(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("")
 	}()
 
-	// check access token
-	_, err := dbactions.GetOneLoginDB(jwtStr)
+	// find userMail
+	UserInfor, err := dbactions.GetOneLoginDB(jwtStr)
 	if err == true {
 		w.WriteHeader(http.StatusBadRequest)
 		message = "your access-token is wrong"
@@ -35,24 +35,24 @@ func PostImage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// get image data
-	file, _, err := r.FormFile("image")
-	if err != nil {
+	file, _, err2 := r.FormFile("Image")
+	if err2 != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		message = err.Error()
+		message = err2.Error()
 		return
 	}
 
 	// Read the file into memory
-	data, err := ioutil.ReadAll(file)
-	if err != nil {
+	data, err2 := ioutil.ReadAll(file)
+	if err2 != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		message = err.Error()
+		message = err2.Error()
 		return
 	}
 
 	// insert to mongodb
-	err2 := dbactions.AddOneImageDB(data, filename)
-	if err2 {
+	err3 := dbactions.AddOneImageDB(data, UserInfor.Mail, filename)
+	if err3 {
 		w.WriteHeader(http.StatusInternalServerError)
 		message = "Cannot insert image to mongodb"
 		return
