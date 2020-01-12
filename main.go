@@ -21,6 +21,7 @@ func main() {
 	api.HandleFunc("/signup", apiactions.SignUpPost).Methods(http.MethodPost)
 	api.HandleFunc("/account", account.GetAcountGet).Methods(http.MethodGet)
 	api.HandleFunc("/account", account.UpdateAcountPut).Methods(http.MethodPut)
+	api.HandleFunc("/account/password", account.ComparePasswordGet).Methods(http.MethodGet)
 	api.HandleFunc("/image", image.GetImage).Methods(http.MethodGet)
 	api.HandleFunc("/image", image.PostImage).Methods(http.MethodPost)
 	// api.HandleFunc("", put).Methods(http.MethodPut)

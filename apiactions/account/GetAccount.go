@@ -18,6 +18,7 @@ func GetAcountGet(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
+		body.Pass = ""
 		responser := datastruct.MessageRespone{
 			Message: message,
 			Body:    body,
@@ -27,10 +28,17 @@ func GetAcountGet(w http.ResponseWriter, r *http.Request) {
 	}()
 
 	// check information and return bugs
-	_, err := dbactions.GetOneLoginDB(jwtStr)
+	acc, err := dbactions.GetOneLoginDB(jwtStr)
 	if err == true {
 		w.WriteHeader(http.StatusBadRequest)
 		message = "your access-token is wrong"
+		return
+	}
+
+	// if no bug -> return OK
+	if body, err = dbactions.GetOneSignUpDB(acc.Mail); err == true {
+		w.WriteHeader(http.StatusInternalServerError)
+		message = "server has something not true"
 		return
 	}
 
