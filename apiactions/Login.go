@@ -23,14 +23,13 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	JsonToken, UserInformation, errr := CheckingLogin(p)
+	jsonToken, _, errr := CheckingLogin(p)
 
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
-		UserInformation.Pass = ""
 		responser := datastruct.MessageRespone{
 			Message: message,
-			Body:    nil,
+			Body:    jsonToken,
 		}
 		json.NewEncoder(w).Encode(responser)
 		fmt.Println("")
@@ -51,10 +50,10 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 		return
 	case 4:
 		w.WriteHeader(http.StatusBadRequest)
-		message = "email is wrong"
+		message = "mail is wrong"
 		return
 	default:
-		errDB := dbactions.AddOneLoginDB(p.Mail, JsonToken.AccessToken)
+		errDB := dbactions.AddOneLoginDB(p.Mail, jsonToken.AccessToken)
 		if errDB { // if have a bug when add acc to LoginDB
 			w.WriteHeader(http.StatusInternalServerError)
 			message = "server has something wrong"

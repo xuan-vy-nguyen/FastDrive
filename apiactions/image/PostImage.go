@@ -13,6 +13,7 @@ import (
 
 // PostImage is used for testing
 func PostImage(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Post Image")
 	jwtStr := r.Header["Access-Token"][0]
 	filename := r.Header["File-Name"][0]
 	var message string
@@ -32,6 +33,25 @@ func PostImage(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		message = "your access-token is wrong"
 		return
+	}
+
+	// get list of user's images
+	listNameImg, errListNameImg := dbactions.GetAllNameUserImage(UserInfor.Mail)
+	if errListNameImg {
+		w.WriteHeader(http.StatusInternalServerError)
+		message = "StatusInternalServerError"
+		return
+	}
+
+	// check name of new image
+	i := 0
+	for i < len(listNameImg) {
+		if filename == listNameImg[i] {
+			w.WriteHeader(http.StatusBadRequest)
+			message = "'" + filename + "' has been used"
+			return
+		}
+		i++
 	}
 
 	// get image data

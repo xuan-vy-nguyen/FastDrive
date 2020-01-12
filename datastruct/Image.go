@@ -8,6 +8,6 @@ type ImageRequest struct {
 // ImageDB is ok
 type ImageDB struct {
 	Name  string `json:"name"`
-	Email string `json:"email"`
+	Mail  string `json:"mail"`
 	Image []byte `json:"image"`
 }

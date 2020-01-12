@@ -47,7 +47,7 @@ func UpdateAcountPut(w http.ResponseWriter, r *http.Request) {
 		}
 		// checking
 		if errrStr := apiactions.CheckingSignUp(p); errrStr != "" {
-			if errrStr == "email is used by another user" && p.Mail == oldLogin.Mail {
+			if errrStr == "mail is used by another user" && p.Mail == oldLogin.Mail {
 				fmt.Println("No conflict")
 			} else {
 				w.WriteHeader(http.StatusBadRequest)
@@ -68,8 +68,8 @@ func UpdateAcountPut(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		// return OK
-		w.WriteHeader(http.StatusCreated)
-		message = "created"
+		w.WriteHeader(http.StatusOK)
+		message = "updated"
 		return
 	}
 }

@@ -62,7 +62,7 @@ func CheckingSignUp(infor datastruct.SignUpAccount) string {
 	reDate := regexp.MustCompile("((19|20)\\d\\d)/(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])")
 	// check infor is validated
 	if !reMail.MatchString(infor.Mail) {
-		return "email is wrong"
+		return "mail is wrong"
 	}
 	if len(infor.Pass) < 7 {
 		return "password is atleast 7 characters"
@@ -76,7 +76,7 @@ func CheckingSignUp(infor datastruct.SignUpAccount) string {
 
 	// check exist account in DB
 	if dbactions.ExistInSignUpDB(infor.Mail) {
-		return "email is used by another user"
+		return "mail is used by another user"
 	}
 	// insert to mongoDB and return err, if err = "" => no err
 

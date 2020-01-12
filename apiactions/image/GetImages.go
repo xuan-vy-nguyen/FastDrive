@@ -14,7 +14,8 @@ func GetImage(w http.ResponseWriter, r *http.Request) {
 
 	// check access token
 	jwtStr := r.Header["Access-Token"][0]
-	fileName := r.Header["File-Name"][0]
+	filename := r.Header["File-Name"][0]
+	// checking jwt
 	_, err := dbactions.GetOneLoginDB(jwtStr)
 	if err == true {
 		w.WriteHeader(http.StatusBadRequest)
@@ -24,18 +25,41 @@ func GetImage(w http.ResponseWriter, r *http.Request) {
 	var data datastruct.ImageDB
 
 	// prepare for return
-	w.Header().Set("Content-Type", "application/form-data")
+	w.Header().Set("Content-Type", "multipart/form-data")
 	defer func() {
 		w.Write(data.Image)
 		fmt.Println("")
 	}()
 
-	// get Image and error
-	data, err2 := dbactions.GetOneImageDB(fileName, jwtStr)
-	if err2 == true {
+	// find userMail
+	UserInfor, err := dbactions.GetOneLoginDB(jwtStr)
+	if err == true {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	// return true
-	w.WriteHeader(http.StatusOK)
+
+	// get list of user's images
+	listNameImg, errListNameImg := dbactions.GetAllNameUserImage(UserInfor.Mail)
+	if errListNameImg {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	// check name of new image
+	i := 0
+	for i < len(listNameImg) {
+		if filename == listNameImg[i] {
+			// get Image and error
+			data, err = dbactions.GetOneImageDB(filename, UserInfor.Mail)
+			if err == true {
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+			// return true
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+		i++
+	}
+	w.WriteHeader(http.StatusNotFound)
 }

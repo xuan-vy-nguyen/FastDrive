@@ -9,6 +9,7 @@ import (
 	"github.com/xuan-vy-nguyen/SE_Project01/dbactions"
 )
 
+// ComparePasswordGet campare password in DB and password from user's request.
 func ComparePasswordGet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("ComparePasswordGet")
 
