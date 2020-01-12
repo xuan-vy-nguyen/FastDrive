@@ -3,7 +3,7 @@
 ## Hello teacher
 This project has 2 branch:
 - Master: is used for submitting SoftwareEngineering-Final Project
-- Mobile: is used for submitting Mobile-Develeop-Final Project
+- Mobile: is used for submitting Mobile-Develeop-Final Project <br/>
 Current Branch is Master!
 
 ## Intro
