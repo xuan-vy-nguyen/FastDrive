@@ -1,7 +1,6 @@
 package image
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -15,22 +14,14 @@ func GetImage(w http.ResponseWriter, r *http.Request) {
 
 	// check access token
 	jwtStr := r.Header["Access-Token"][0]
+	fileName := r.Header["File-Name"][0]
 	_, err := dbactions.GetOneLoginDB(jwtStr)
 	if err == true {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	var p datastruct.ImageRequest
 	var data datastruct.ImageDB
-
-	// get fileName
-	errFileName := json.NewDecoder(r.Body).Decode(&p)
-	if errFileName != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	fileName := p.Name
 
 	// prepare for return
 	w.Header().Set("Content-Type", "application/form-data")
