@@ -29,6 +29,7 @@ func main() {
 	// Image's Behaviors
 	api.HandleFunc("/image", image.GetImage).Methods(http.MethodGet)
 	api.HandleFunc("/image", image.PostImage).Methods(http.MethodPost)
+	api.HandleFunc("/image/enhancement", image.EnhancementImage).Methods(http.MethodPost)
 	api.HandleFunc("/image", image.DeleteImage).Methods(http.MethodDelete)
 	api.HandleFunc("/image/list", image.GetListImages).Methods(http.MethodGet)
 	// api.HandleFunc("", put).Methods(http.MethodPut)
