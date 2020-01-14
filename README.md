@@ -22,17 +22,38 @@ Use this command to clone.
 git clone https://github.com/xuan-vy-nguyen/CNPM-Project01.git
 ```
 
-## Struct of git branch
-![alt text](https://miro.medium.com/max/1200/1*uUpzVOpdFw5V-tJ_YvgFmA.png)
-
-To explain:
-- Feature branch: each member receive a task and then, he will check a feature branch from Develop. He code, debug, and do everything he want to in here. After finish his task, that man should create a pull request and invite another teammates for reviewing  before merging.
-- Develop branch: We test morething in here before submitting to Master branch. Each feature can work with themselves but after merging a lot of components in one source, They will certainly conflict or have bugs. Develop branch is using for fixing those bugs. 
-- Master branch: Not only is what we submit, but it alse is the most beautiful source on Github - no bug, clean code.
-
 ## Requirements
 In this project, we should learn and use MongoDB, Golang, Docker, Heroku, JWT, IFTTT, Redis in backend-server. Why? Because they are so clearly and friendly.
 In FrontEnd, there are many options: App, WebApp, Web,... you can discuss and vote about this topic on teamChat.
 
-## Plan
-nothing
+## How to setup server
+0. Clone this repo
+
+1. first install go-mongo-driver
+- install golang & mongodb
+- install dep
+- go to golang_workspace and create PROJECT_WORKSPACE
+- type "dep init"
+- How to use Mongo-Driver? follow this link :
+```
+https://www.mongodb.com/blog/post/mongodb-go-driver-tutorial 
+https://dev.to/moficodes/build-your-first-rest-api-with-go-2gcj
+```
+
+2.  use jwt
+- https://www.sohamkamani.com/blog/golang/2019-01-01-jwt-authentication/
+
+3. upload large file to mongoDB
+- https://stackoverflow.com/questions/39039560/upload-image-from-android-to-golang-server-and-save-it-in-mongodb
+- https://www.mongodb.com/blog/post/quick-start-golang--mongodb--a-quick-look-at-gridfs
+
+4.  Setup on Heroku
+- heroku.yml
+- https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
+- view heroku.logs
+- https://devcenter.heroku.com/articles/logging
+
+5.  setup on VM Google 
+- use UFW https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-16-04
+- Allow port 80
+- redirect port 80 to port server
