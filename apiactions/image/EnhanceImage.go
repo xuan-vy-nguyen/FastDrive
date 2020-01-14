@@ -31,7 +31,7 @@ func EnhancementImage(w http.ResponseWriter, r *http.Request) {
 	}()
 
 	// check style
-	if !(style == "mosaic" || style == "candy" || style == "rain_priness" || style == "udnie") {
+	if !(style == "mosaic" || style == "candy" || style == "rain_princess" || style == "udnie") {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -68,7 +68,7 @@ func EnhancementImage(w http.ResponseWriter, r *http.Request) {
 	}
 	f.WriteString("image/input/" + nameImage + "\n")
 	f.WriteString("image/output/" + nameImage + "\n")
-	f.WriteString("fast_neural_style/saved_models/" + style + ".pth")
+	f.WriteString("fast_neural_style/saved_models/" + style + ".pth\n")
 	f.Close()
 
 	// write Image on disk

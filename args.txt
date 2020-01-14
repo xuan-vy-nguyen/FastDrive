@@ -1,3 +1,4 @@
-image/input/kudo99pro@gmail.com_image1.png
-image/output/kudo99pro@gmail.com_image1.png
-fast_neural_style/saved_models/mosaic.pth
+image/input/kudo99pro@gmail.com_img.png
+image/output/kudo99pro@gmail.com_img.png
+fast_neural_style/saved_models/udnie.pth
+ess.pth
