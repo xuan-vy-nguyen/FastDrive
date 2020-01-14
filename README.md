@@ -2,9 +2,10 @@
 
 ## Hello teacher
 This project has 2 branch:
-- Master: is used for submitting SoftwareEngineering-Final Project
-- Mobile: is used for submitting Mobile-Develeop-Final Project <br/>
-Current Branch is Mobile!
+- 2: is used for submitting Software-Engineering-Final-Project
+- Master: Future-Project (I can use it for submitting Mobile-Project)
+- Mobile: is used for submitting Mobile-Develeop-Final-Project <br/>
+Current Branch is Master!
 
 ## Intro
 This is the repo of Project 01 - Team Software Engineering. Please read carefully "REAME.md" file before doing everything you want.

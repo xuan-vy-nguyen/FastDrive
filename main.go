@@ -14,7 +14,7 @@ import (
 
 func main() {
 	// Log PORT
-	fmt.Println(os.Getenv("PORT"))
+	fmt.Println("PORT: ", os.Getenv("PORT"))
 	// create API
 	r := mux.NewRouter()
 	api := r.PathPrefix("/api/v1").Subrouter()
@@ -39,6 +39,6 @@ func main() {
 	if port != "" {
 		log.Fatal(http.ListenAndServe(":"+port, r))
 	} else {
-		log.Fatal(http.ListenAndServe(":8080", r))
+		log.Fatal(http.ListenAndServe(":80", r))
 	}
 }
