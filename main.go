@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -12,6 +13,9 @@ import (
 )
 
 func main() {
+	// Log PORT
+	fmt.Println(os.Getenv("PORT"))
+	// create API
 	r := mux.NewRouter()
 	api := r.PathPrefix("/api/v1").Subrouter()
 	// "The Gate"
