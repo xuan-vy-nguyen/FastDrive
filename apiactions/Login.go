@@ -44,10 +44,10 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		message = "server has something wrong"
 		return
-	case 3:
-		w.WriteHeader(http.StatusBadRequest)
-		message = "account is logging in another place"
-		return
+	// case 3:
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	message = "account is logging in another place"
+	// 	return
 	case 4:
 		w.WriteHeader(http.StatusBadRequest)
 		message = "mail is wrong"
