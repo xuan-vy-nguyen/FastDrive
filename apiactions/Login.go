@@ -44,10 +44,10 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		message = "server has something wrong"
 		return
-	// case 3:
-	// 	w.WriteHeader(http.StatusBadRequest)
-	// 	message = "account is logging in another place"
-	// 	return
+	case 3:
+		w.WriteHeader(http.StatusBadRequest)
+		message = "account is logging in another place"
+		return
 	case 4:
 		w.WriteHeader(http.StatusBadRequest)
 		message = "mail is wrong"
@@ -80,9 +80,9 @@ func CheckingLogin(p datastruct.LoginAccount) (datastruct.JWTRespone, datastruct
 	}
 
 	// check if user has login in another place
-	// if dbactions.CheckAccInLoginDB(p) {
-	// 	return reponseJson, userInformation, 3
-	// }
+	if dbactions.CheckAccInLoginDB(p) {
+		return reponseJson, userInformation, 3
+	}
 	token, err := jwtactions.CreateJWT(p)
 	if err {
 		return reponseJson, userInformation, 1 // server bug
