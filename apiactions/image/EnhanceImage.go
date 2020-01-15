@@ -18,7 +18,7 @@ import (
 // EnhancementImage is used for testing
 func EnhancementImage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Enhancement Image")
-	jwtStr := r.Header["AccessToken"][0]
+	jwtStr := r.Header["Accesstoken"][0]
 	filename := r.Header["File-Name"][0]
 	style := r.Header["Style"][0]
 

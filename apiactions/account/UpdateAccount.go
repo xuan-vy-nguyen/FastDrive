@@ -15,7 +15,7 @@ func UpdateAcountPut(w http.ResponseWriter, r *http.Request) {
 
 	var p datastruct.SignUpAccount
 	var message string
-	jwtStr := r.Header["AccessToken"][0]
+	jwtStr := r.Header["Accesstoken"][0]
 
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {

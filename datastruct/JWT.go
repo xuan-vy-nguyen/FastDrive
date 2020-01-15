@@ -12,6 +12,6 @@ type Claims struct {
 
 // JWTRespone is ok
 type JWTRespone struct {
-	AccessToken  string `json:"accesstoken"`
+	Accesstoken  string `json:"accesstoken"`
 	RefreshToken string `json:"refreshtoken"`
 }

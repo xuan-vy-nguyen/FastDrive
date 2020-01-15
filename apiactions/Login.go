@@ -53,7 +53,7 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 		message = "mail is wrong"
 		return
 	default:
-		errDB := dbactions.AddOneLoginDB(p.Mail, jsonToken.AccessToken)
+		errDB := dbactions.AddOneLoginDB(p.Mail, jsonToken.Accesstoken)
 		if errDB { // if have a bug when add acc to LoginDB
 			w.WriteHeader(http.StatusInternalServerError)
 			message = "server has something wrong"
@@ -92,7 +92,7 @@ func CheckingLogin(p datastruct.LoginAccount) (datastruct.JWTRespone, datastruct
 		return reponseJson, userInformation, 1 // server bug
 	}
 	reponseJson = datastruct.JWTRespone{
-		AccessToken:  token,
+		Accesstoken:  token,
 		RefreshToken: "",
 	}
 	return reponseJson, userInformation, 2 // return ok

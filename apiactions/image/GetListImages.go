@@ -14,7 +14,7 @@ func GetListImages(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Get All Name Image")
 
 	// check access token
-	jwtStr := r.Header["AccessToken"][0]
+	jwtStr := r.Header["Accesstoken"][0]
 
 	// return values
 	var body []string
