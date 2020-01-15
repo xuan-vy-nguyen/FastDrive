@@ -14,7 +14,7 @@ import (
 // PostImage is used for testing
 func PostImage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Post Image")
-	jwtStr := r.Header["Access-Token"][0]
+	jwtStr := r.Header["AccessToken"][0]
 	filename := r.Header["File-Name"][0]
 	var message string
 

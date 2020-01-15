@@ -14,7 +14,7 @@ func GetAcountGet(w http.ResponseWriter, r *http.Request) {
 
 	message := ""
 	var body datastruct.SignUpAccount
-	jwtStr := r.Header["Access-Token"][0]
+	jwtStr := r.Header["AccessToken"][0]
 
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {

@@ -14,7 +14,7 @@ func ComparePasswordGet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("ComparePasswordGet")
 
 	message := ""
-	jwtStr := r.Header["Access-Token"][0]
+	jwtStr := r.Header["AccessToken"][0]
 
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {

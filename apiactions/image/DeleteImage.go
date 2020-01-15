@@ -14,7 +14,7 @@ func DeleteImage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("DeleteImage")
 
 	// check access token
-	jwtStr := r.Header["Access-Token"][0]
+	jwtStr := r.Header["AccessToken"][0]
 	filename := r.Header["File-Name"][0]
 	_, err := dbactions.GetOneLoginDB(jwtStr)
 	if err == true {

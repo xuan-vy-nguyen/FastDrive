@@ -13,7 +13,7 @@ func GetImage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("GetImage")
 
 	// check access token
-	jwtStr := r.Header["Access-Token"][0]
+	jwtStr := r.Header["AccessToken"][0]
 	filename := r.Header["File-Name"][0]
 	// checking jwt
 	_, err := dbactions.GetOneLoginDB(jwtStr)
