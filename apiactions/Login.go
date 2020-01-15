@@ -80,9 +80,9 @@ func CheckingLogin(p datastruct.LoginAccount) (datastruct.JWTRespone, datastruct
 	}
 
 	// check if user has login in another place
-	if dbactions.CheckAccInLoginDB(p) {
-		return reponseJson, userInformation, 3
-	}
+	// if dbactions.CheckAccInLoginDB(p) {
+	// 	return reponseJson, userInformation, 3
+	// }
 	token, err := jwtactions.CreateJWT(p)
 	if err {
 		return reponseJson, userInformation, 1 // server bug
