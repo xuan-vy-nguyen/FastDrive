@@ -1,0 +1,484 @@
+{
+	"info": {
+		"_postman_id": "e4a33d1c-b7fa-42d2-89b2-f4f3cb5f1af5",
+		"name": "MobileDev-Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Get Account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Access-Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODg0MjUzN30.KfvA5-GdwmEVDgR-oVQP6MY9Vyh7xPhMAZmTJUymP5k",
+								"description": "Your access-token",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://35.240.166.190/api/v1/account?",
+							"protocol": "http",
+							"host": [
+								"35",
+								"240",
+								"166",
+								"190"
+							],
+							"path": [
+								"api",
+								"v1",
+								"account"
+							],
+							"query": [
+								{
+									"key": "Access-Token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODg0MjUzN30.KfvA5-GdwmEVDgR-oVQP6MY9Vyh7xPhMAZmTJUymP5k",
+									"description": "Your access-token which is get from login",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Account",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Access-Token",
+								"name": "Content-Type",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODg0MjUzN30.KfvA5-GdwmEVDgR-oVQP6MY9Vyh7xPhMAZmTJUymP5k",
+								"description": "Your Access-Token",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODg0MjUzN30.KfvA5-GdwmEVDgR-oVQP6MY9Vyh7xPhMAZmTJUymP5k"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"mail\": \"superVIP@gmail.com\", \n\n    \"pass\": \"7654321\", \n\n    \"username\": \"Khong phai XuanVy\", \n\n    \"birthday\": \"2018/03/17\", \n\n    \"phoneNumber\": \"0935624754\", \n\n    \"firstname\": \"Vy\", \n\n    \"lastname\": \"Nguyen\", \n\n    \"isactive\": false, \n\n    \"createat\": \"\", \n\n    \"isdeleted\": false \n}"
+						},
+						"url": {
+							"raw": "http://35.240.166.190/api/v1/account",
+							"protocol": "http",
+							"host": [
+								"35",
+								"240",
+								"166",
+								"190"
+							],
+							"path": [
+								"api",
+								"v1",
+								"account"
+							],
+							"query": [
+								{
+									"key": "Access-Token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODg0MjUzN30.KfvA5-GdwmEVDgR-oVQP6MY9Vyh7xPhMAZmTJUymP5k",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Checking Password",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Access-Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODg0MjUzN30.KfvA5-GdwmEVDgR-oVQP6MY9Vyh7xPhMAZmTJUymP5k",
+								"description": "Access-Token",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"pass\" : \"7654321\"\n}"
+						},
+						"url": {
+							"raw": "http://35.240.166.190/api/v1/account/password",
+							"protocol": "http",
+							"host": [
+								"35",
+								"240",
+								"166",
+								"190"
+							],
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"password"
+							]
+						},
+						"description": "Camparing request password and password in DB.\nWhy? Because we never send password to client."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Image",
+			"item": [
+				{
+					"name": "Upload Image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Access-Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODg0MjUzN30.KfvA5-GdwmEVDgR-oVQP6MY9Vyh7xPhMAZmTJUymP5k",
+								"type": "text"
+							},
+							{
+								"key": "File-Name",
+								"value": "224.png",
+								"description": "Your File Name",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Image",
+									"description": "Your Image",
+									"type": "file",
+									"src": "/home/xv/Pictures/Screenshot from 2020-01-07 18-40-41.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://powerful-harbor-05723.herokuapp.com/api/v1/image",
+							"protocol": "http",
+							"host": [
+								"powerful-harbor-05723",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"image"
+							]
+						},
+						"description": "Upload Image to server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Image",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Access-Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODg0MjUzN30.KfvA5-GdwmEVDgR-oVQP6MY9Vyh7xPhMAZmTJUymP5k",
+								"type": "text"
+							},
+							{
+								"key": "File-Name",
+								"value": "background4.png",
+								"description": "Your File Name",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Image",
+									"description": "Your Image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://35.240.166.190/api/v1/image",
+							"protocol": "http",
+							"host": [
+								"35",
+								"240",
+								"166",
+								"190"
+							],
+							"path": [
+								"api",
+								"v1",
+								"image"
+							]
+						},
+						"description": "Upload Image to server"
+					},
+					"response": []
+				},
+				{
+					"name": "Download Image",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Access-Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODk2NDQxM30.YKvcdHM4zAsqU3Wvt76eaIAEYWBLRCxHlOI0ozIgA00",
+								"type": "text"
+							},
+							{
+								"key": "File-Name",
+								"value": "KhongSaoDau.png",
+								"description": "Your File Name",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://35.240.166.190/api/v1/image",
+							"protocol": "http",
+							"host": [
+								"35",
+								"240",
+								"166",
+								"190"
+							],
+							"path": [
+								"api",
+								"v1",
+								"image"
+							]
+						},
+						"description": "Upload Image to server"
+					},
+					"response": []
+				},
+				{
+					"name": "Get List of Image",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Access-Token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoieHVhbnZ5OTI5QGdtYWlsLmNvbSIsImV4cCI6MTkzODg5MzQ3N30.VgTm1fAzcNe-j7NtKML6hK6VNDGyCcJkSa8cHbIZaVw"
+							},
+							{
+								"description": "Your File Name",
+								"key": "File-Name",
+								"type": "text",
+								"value": "file1.png",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://35.240.166.190/api/v1/image/list",
+							"protocol": "http",
+							"host": [
+								"35",
+								"240",
+								"166",
+								"190"
+							],
+							"path": [
+								"api",
+								"v1",
+								"image",
+								"list"
+							]
+						},
+						"description": "Upload Image to server"
+					},
+					"response": []
+				},
+				{
+					"name": "EnhancementImage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Access-Token",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODk2NDQxM30.YKvcdHM4zAsqU3Wvt76eaIAEYWBLRCxHlOI0ozIgA00"
+							},
+							{
+								"key": "File-Name",
+								"type": "text",
+								"value": "image1.png"
+							},
+							{
+								"description": "type of image return (mosaic, candy,  rain_princess, udnie)",
+								"key": "Style",
+								"type": "text",
+								"value": "mosaic"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Image",
+									"type": "file",
+									"src": "/home/xv/Downloads/logo_small.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://35.240.166.190/api/v1/image/enhancement",
+							"protocol": "http",
+							"host": [
+								"35",
+								"240",
+								"166",
+								"190"
+							],
+							"path": [
+								"api",
+								"v1",
+								"image",
+								"enhancement"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "API use for uploading-downloading image and more. ",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n        \"mail\": \"kudo99pro@gmail.com\", \n        \"pass\": \"1234567\", \n        \"username\": \"Khong phai XuanVy\", \n        \"birthday\": \"2018/03/17\", \n        \"phoneNumber\": \"0935624754\", \n        \"firstname\": \"Vy\", \n        \"lastname\": \"Nguyen\", \n        \"isactive\": false, \n        \"createat\": \"\", \n        \"isdeleted\": false \n} "
+				},
+				"url": {
+					"raw": "http://35.240.166.190/api/v1/signup",
+					"protocol": "http",
+					"host": [
+						"35",
+						"240",
+						"166",
+						"190"
+					],
+					"path": [
+						"api",
+						"v1",
+						"signup"
+					]
+				},
+				"description": "Header: Content-Type : application/json \n\nBody: { \n\n        \"mail\": \"kudo99pro@gmail.com\", \n\n        \"pass\": \"1234567\", \n\n        \"username\": \"Khong phai XuanVy\", \n\n        \"birthday\": \"2018/03/17\", \n\n        \"phoneNumber\": \"0935624754\", \n\n        \"firstname\": \"Vy\", \n\n        \"lastname\": \"Nguyen\", \n\n        \"isactive\": false, \n\n        \"createat\": \"\", \n\n        \"isdeleted\": false \n\n} \n\nTrong đó, createAt cứ để “” vì server sẽ lấy thời gian thực mà fill vào. Chú ý ngày tháng năm phải theo định dạng YYYY/MM/DD, không đúng thì server báo lỗi thôi chứ ko sao hết :v . “isactivate” và “isdeleted” không nên để người dùng nhập mà hãy mặc định là false (chú ý không có dấu nháy) vì nó là biến bool. \n\nNhấn send để nhận result gồm HTTP Status và Message "
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mail\": \"kudo99pro@gmail.com\", \n    \"pass\": \"1234567\"\n}"
+				},
+				"url": {
+					"raw": "http://35.240.166.190/api/v1/login",
+					"protocol": "http",
+					"host": [
+						"35",
+						"240",
+						"166",
+						"190"
+					],
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				},
+				"description": "Để login cần: mail – pass. Sau khi Login thì sẽ nhận được thông tin user (ngoại trừ password để trống để bảo mật). Muốn lấy luôn cả pass thì xem Get Account mục số 5 \n\nVD:Header: Content-Type : application/json \n\nBody: { \n\n\"mail\" : \"xuanvy999@gmail.com\", \n\n\"pass\" : \"1234567\" \n\n} "
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Access-Token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoia3Vkbzk5cHJvQGdtYWlsLmNvbSIsImV4cCI6MTkzODg0MjUzN30.KfvA5-GdwmEVDgR-oVQP6MY9Vyh7xPhMAZmTJUymP5k",
+						"description": "Your access-Token which  is get from login",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://35.240.166.190/api/v1/logout",
+					"protocol": "http",
+					"host": [
+						"35",
+						"240",
+						"166",
+						"190"
+					],
+					"path": [
+						"api",
+						"v1",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

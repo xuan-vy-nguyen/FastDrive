@@ -57,3 +57,10 @@ https://dev.to/moficodes/build-your-first-rest-api-with-go-2gcj
 - use UFW https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-16-04
 - Allow port 80
 - redirect port 80 to port server
+
+## API 
+Import APIServer.json to Postman and follow it. It's so ez.
+
+## About content
+- I include Example/Pytorch/fast_neural_style in my repo. U can clone it in here: https://github.com/pytorch/examples.git.
+- I am going to develop this system. All I want is that this API can be embedded with lifelog retrieval or image enhancement, become a LARGE SYSTEM in AI-Engineering.
