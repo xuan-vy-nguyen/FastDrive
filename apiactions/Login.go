@@ -23,13 +23,26 @@ func LoginPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jsonToken, _, errr := CheckingLogin(p)
+	jsonToken, UserInformation, errr := CheckingLogin(p)
 
 	w.Header().Set("Content-Type", "application/json")
 	defer func() {
+		type bodyStruct struct {
+			Tokens   string `json:"Accesstokens"`
+			Users    string `json:"username"`
+			BirthDay string `json:"birthday"`
+			CreateAt string `json:"createat"`
+			Phone    string `json:"phoneNumber"`
+		}
 		responser := datastruct.MessageRespone{
 			Message: message,
-			Body:    jsonToken,
+			Body: bodyStruct{
+				Tokens:   jsonToken.Accesstoken,
+				Users:    UserInformation.UserName,
+				BirthDay: UserInformation.BirthDay,
+				Phone:    UserInformation.PhoneNumber,
+				CreateAt: UserInformation.CreateAt,
+			},
 		}
 		json.NewEncoder(w).Encode(responser)
 		fmt.Println("")
