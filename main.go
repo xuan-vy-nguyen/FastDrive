@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+	x2()
 	// Log PORT
 	fmt.Println("PORT: ", os.Getenv("PORT"))
 	// create API

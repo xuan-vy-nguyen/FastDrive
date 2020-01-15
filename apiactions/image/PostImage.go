@@ -44,16 +44,17 @@ func PostImage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// check name of new image
-	i := 0
-	for i < len(listNameImg) {
-		if filename == listNameImg[i] {
-			w.WriteHeader(http.StatusBadRequest)
-			message = "'" + filename + "' has been used"
-			return
+	if listNameImg != nil {
+		i := 0
+		for i < len(listNameImg) {
+			if filename == listNameImg[i] {
+				w.WriteHeader(http.StatusBadRequest)
+				message = "'" + filename + "' has been used"
+				return
+			}
+			i++
 		}
-		i++
 	}
-
 	// get image data
 	file, _, err2 := r.FormFile("Image")
 	if err2 != nil {
