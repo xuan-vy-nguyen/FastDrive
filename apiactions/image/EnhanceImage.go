@@ -89,7 +89,7 @@ func EnhancementImage(w http.ResponseWriter, r *http.Request) {
 	out.Close()
 
 	// exec python
-	cmd := exec.Command("python", "fast_neural_style/neural_style/neural_style.py")
+	cmd := exec.Command("python3.6", "fast_neural_style/neural_style/neural_style.py")
 	if err := cmd.Start(); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Fatal(err)

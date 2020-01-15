@@ -33,11 +33,13 @@ func SignUpPost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		message = err.Error()
+		fmt.Println(message)
 		return
 	} else {
 		if errrStr := CheckingSignUp(p); errrStr != "" {
 			w.WriteHeader(http.StatusBadRequest)
 			message = errrStr
+			fmt.Println(message)
 			return
 		}
 		// update information
@@ -47,6 +49,7 @@ func SignUpPost(w http.ResponseWriter, r *http.Request) {
 		if errrStr := dbactions.AddOneSignUpDB(p); errrStr != "" {
 			w.WriteHeader(http.StatusBadRequest)
 			message = errrStr
+			fmt.Println(message)
 			return
 		}
 		w.WriteHeader(http.StatusCreated)
