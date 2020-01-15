@@ -40,6 +40,6 @@ func main() {
 	if port != "" {
 		log.Fatal(http.ListenAndServe(":"+port, r))
 	} else {
-		log.Fatal(http.ListenAndServe(":8080", r))
+		log.Fatal(http.ListenAndServe(":80", r))
 	}
 }
