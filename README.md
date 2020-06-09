@@ -4,7 +4,7 @@
 This project has 2 branch:
 - Master: Future-Project.
 - IntroToSE: is used for submitting Software-Engineering Final-Project
-- Mobile: is used for submitting Mobile-Develeop Final-Project <br/>
+- Mobile: is used for submitting Mobile-Development Final-Project <br/>
 Current Branch is Master!
 
 ## Intro
