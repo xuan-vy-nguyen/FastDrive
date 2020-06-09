@@ -2,14 +2,12 @@
 
 ## Hello teacher
 This project has 2 branch:
-- 2: is used for submitting Software-Engineering-Final-Project
-- Master: Future-Project (I can use it for submitting Mobile-Project)
-- Mobile: is used for submitting Mobile-Develeop-Final-Project <br/>
+- Master: Future-Project.
+- IntroToSE: is used for submitting Software-Engineering Final-Project
+- Mobile: is used for submitting Mobile-Develeop Final-Project <br/>
 Current Branch is Master!
 
 ## Intro
-This is the repo of Project 01 - Team Software Engineering. Please read carefully "REAME.md" file before doing everything you want.
-
 First, you should go to this link and learn more about Git if you are beginner.
 ```bash
 https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf
