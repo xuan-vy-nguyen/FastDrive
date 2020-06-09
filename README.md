@@ -3,15 +3,12 @@
 
 ## Hello teacher
 This project has 3 branch:
-- 2: is used for submitting SoftwareFinalProject
 - Master: is used for updating in future.
-- Mobile: is used for submitting Mobile-Develeop-Final Project <br/>
+- IntroToSE: is used for submitting SoftwareFinalProject
+- Mobile: is used for submitting Mobile-Development Final Project <br/>
 Current Branch is 2!
 
 ## Intro
-
-This is the repo of Project 01 - Team Software Engineering. Please read carefully "REAME.md" file before doing everything you want.
-
 First, you should go to this link and learn more about Git if you are beginner.
 ```bash
 https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf
