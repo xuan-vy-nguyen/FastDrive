@@ -8,8 +8,8 @@ import (
 
 	"github.com/gorilla/mux"
 	apiactions "github.com/xuan-vy-nguyen/SE_Project01/services"
-	account "github.com/xuan-vy-nguyen/SE_Project01/services/account"
-	image "github.com/xuan-vy-nguyen/SE_Project01/services/image"
+	account "github.com/xuan-vy-nguyen/SE_Project01/services/accounts"
+	image "github.com/xuan-vy-nguyen/SE_Project01/services/images"
 )
 
 func main() {
@@ -40,6 +40,6 @@ func main() {
 	if port != "" {
 		log.Fatal(http.ListenAndServe(":"+port, r))
 	} else {
-		log.Fatal(http.ListenAndServe(":80", r))
+		log.Fatal(http.ListenAndServe(":8080", r))
 	}
 }
