@@ -1,4 +1,4 @@
-package dbactions
+package controllers
 
 import (
 	"context"

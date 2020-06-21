@@ -1,5 +1,5 @@
 // Package dbactions in this file is used for loginDB
-package dbactions
+package controllers
 
 import (
 	"context"

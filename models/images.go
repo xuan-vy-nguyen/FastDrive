@@ -1,4 +1,4 @@
-package datastruct
+package models
 
 // ImageRequest is ok
 type ImageRequest struct {

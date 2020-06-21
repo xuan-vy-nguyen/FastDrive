@@ -1,4 +1,4 @@
-package dbactions
+package controllers
 
 var MongoURI = "mongodb://xuanvy99:az1731999@cluster0-shard-00-00-mzeio.mongodb.net:27017,cluster0-shard-00-01-mzeio.mongodb.net:27017,cluster0-shard-00-02-mzeio.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
 

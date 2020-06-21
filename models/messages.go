@@ -1,4 +1,4 @@
-package datastruct
+package models
 
 // MessageRespone is ok
 type MessageRespone struct {

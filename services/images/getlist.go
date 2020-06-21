@@ -1,12 +1,12 @@
-package image
+package images
 
 import (
 	"encoding/json"
 	"fmt"
 	"net/http"
 
-	datastruct "github.com/xuan-vy-nguyen/SE_Project01/models"
 	dbactions "github.com/xuan-vy-nguyen/SE_Project01/controllers"
+	datastruct "github.com/xuan-vy-nguyen/SE_Project01/models"
 )
 
 // GetListImages is used for testing

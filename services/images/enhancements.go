@@ -1,4 +1,4 @@
-package image
+package images
 
 import (
 	"bytes"
@@ -66,8 +66,8 @@ func EnhancementImage(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
-	f.WriteString("image/input/" + nameImage + "\n")
-	f.WriteString("image/output/" + nameImage + "\n")
+	f.WriteString("images/input/" + nameImage + "\n")
+	f.WriteString("images/output/" + nameImage + "\n")
 	f.WriteString("fast_neural_style/saved_models/" + style + ".pth\n")
 	f.Close()
 
@@ -99,7 +99,7 @@ func EnhancementImage(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	// read image & respone
-	infile, errReadImage := os.Open("image/output/" + nameImage)
+	infile, errReadImage := os.Open("images/output/" + nameImage)
 
 	if errReadImage != nil {
 		fmt.Println(errReadImage.Error())

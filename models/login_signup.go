@@ -1,4 +1,4 @@
-package datastruct
+package models
 
 // LoginAccount type of login data
 type LoginAccount struct {
