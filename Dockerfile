@@ -1,4 +1,4 @@
-FROM golang:1.10.4
+FROM golang:1.13.5
 
 RUN go get github.com/xuan-vy-nguyen/SE_Project01
 
