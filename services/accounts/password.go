@@ -1,12 +1,12 @@
-package account
+package accounts
 
 import (
 	"encoding/json"
 	"fmt"
 	"net/http"
 
-	datastruct "github.com/xuan-vy-nguyen/SE_Project01/models"
 	dbactions "github.com/xuan-vy-nguyen/SE_Project01/controllers"
+	datastruct "github.com/xuan-vy-nguyen/SE_Project01/models"
 )
 
 // ComparePasswordGet campare password in DB and password from user's request.
